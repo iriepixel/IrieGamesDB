@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+struct Game: Identifiable, Codable {
+	let id: Int
+	let name: String
+	let rating: Double?
+	let cover: Cover?
+
+	struct Cover: Codable {
+	
+		let image_id: String
+	}
+}

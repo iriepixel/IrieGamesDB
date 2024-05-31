@@ -11,6 +11,10 @@
 		068C6C8C2C0A80AC00524F30 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C6C8B2C0A80AC00524F30 /* ContentView.swift */; };
 		068C6C8E2C0A80AD00524F30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068C6C8D2C0A80AD00524F30 /* Assets.xcassets */; };
 		068C6C912C0A80AD00524F30 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068C6C902C0A80AD00524F30 /* Preview Assets.xcassets */; };
+		068C6C982C0A80E000524F30 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C6C972C0A80E000524F30 /* GameViewModel.swift */; };
+		068C6C9B2C0A810C00524F30 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C6C9A2C0A810C00524F30 /* GameModel.swift */; };
+		068C6CA12C0A81C600524F30 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 068C6CA02C0A81C600524F30 /* Alamofire */; };
+		06B41CD22C0A92860007F568 /* GameDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B41CD12C0A92860007F568 /* GameDetailModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,9 @@
 		068C6C8B2C0A80AC00524F30 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		068C6C8D2C0A80AD00524F30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		068C6C902C0A80AD00524F30 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		068C6C972C0A80E000524F30 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		068C6C9A2C0A810C00524F30 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		06B41CD12C0A92860007F568 /* GameDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				068C6CA12C0A81C600524F30 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +61,9 @@
 			children = (
 				068C6C892C0A80AC00524F30 /* IrieGamesDBApp.swift */,
 				068C6C8B2C0A80AC00524F30 /* ContentView.swift */,
+				068C6C972C0A80E000524F30 /* GameViewModel.swift */,
+				068C6C992C0A80F800524F30 /* Models */,
+				068C6C9C2C0A813C00524F30 /* Helpers */,
 				068C6C8D2C0A80AD00524F30 /* Assets.xcassets */,
 				068C6C8F2C0A80AD00524F30 /* Preview Content */,
 			);
@@ -65,6 +76,22 @@
 				068C6C902C0A80AD00524F30 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		068C6C992C0A80F800524F30 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				068C6C9A2C0A810C00524F30 /* GameModel.swift */,
+				06B41CD12C0A92860007F568 /* GameDetailModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		068C6C9C2C0A813C00524F30 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +110,9 @@
 			dependencies = (
 			);
 			name = IrieGamesDB;
+			packageProductDependencies = (
+				068C6CA02C0A81C600524F30 /* Alamofire */,
+			);
 			productName = IrieGamesDB;
 			productReference = 068C6C862C0A80AC00524F30 /* IrieGamesDB.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +141,9 @@
 				Base,
 			);
 			mainGroup = 068C6C7D2C0A80AC00524F30;
+			packageReferences = (
+				068C6C9F2C0A81C600524F30 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 068C6C872C0A80AC00524F30 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,6 +170,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				068C6C982C0A80E000524F30 /* GameViewModel.swift in Sources */,
+				06B41CD22C0A92860007F568 /* GameDetailModel.swift in Sources */,
+				068C6C9B2C0A810C00524F30 /* GameModel.swift in Sources */,
 				068C6C8C2C0A80AC00524F30 /* ContentView.swift in Sources */,
 				068C6C8A2C0A80AC00524F30 /* IrieGamesDBApp.swift in Sources */,
 			);
@@ -344,6 +380,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		068C6C9F2C0A81C600524F30 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		068C6CA02C0A81C600524F30 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 068C6C9F2C0A81C600524F30 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 068C6C7E2C0A80AC00524F30 /* Project object */;
 }
