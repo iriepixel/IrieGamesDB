@@ -33,9 +33,7 @@ struct ContentView: View {
 							.frame(width: 80, height: 107)
 							.clipShape(RoundedRectangle(cornerRadius: 5))
 						} else {
-							RoundedRectangle(cornerRadius: 5)
-								.foregroundColor(.gray)
-								.frame(width: 80, height: 107)
+							GameCoverPlaceholderView()
 						}
 
 						VStack(alignment: .leading) {

@@ -14,7 +14,6 @@ struct Game: Identifiable, Codable {
 	let cover: Cover?
 
 	struct Cover: Codable {
-	
 		let image_id: String
 	}
 }

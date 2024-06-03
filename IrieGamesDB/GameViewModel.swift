@@ -30,12 +30,12 @@ class GameViewModel: ObservableObject {
 			.validate()
 			.responseDecodable(of: [Game].self) { response in
 				switch response.result {
-				case .success(let games):
+					case .success(let games):
 					DispatchQueue.main.async {
 						self.games = games
 					}
-				case .failure(let error):
-					print("Error fetching games: \(error.localizedDescription)")
+					case .failure(let error):
+						print("Error fetching games: \(error.localizedDescription)")
 				}
 			}
 	}
