@@ -11,6 +11,10 @@ struct SearchView: View {
 	
 	@Environment(GameViewModel.self) var model
 	@Environment(\.modelContext) private var modelContext
+	
+	@Environment(\.dismissSearch) private var dismissSearch
+	@Environment(\.dismiss) private var dismiss
+	
 	@State private var searchText = ""
 	
 	var body: some View {
@@ -63,9 +67,13 @@ struct SearchView: View {
 					
 				}
 			}
-			.navigationTitle("Search Games")
+//			.listStyle(.plain)
 			.searchable(text: $searchText, prompt: "Search for a game...")
+			.navigationTitle("Search Games")
+			.navigationBarTitleDisplayMode(.inline)
 			.onSubmit(of: .search) {
+//				dismissSearch()
+//				dismiss()
 				model.getGames(query: searchText)
 			}
 		}
