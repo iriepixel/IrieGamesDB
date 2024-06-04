@@ -9,21 +9,17 @@ import SwiftUI
 
 struct SearchView: View {
 	
-	@StateObject private var viewModel = GameViewModel()
+	@Environment(GameViewModel.self) var model
+//	@Environment(\.modelContext) private var context
+	
+//	@StateObject private var viewModel = GameViewModel()
 	@State private var searchText = ""
 	
-    var body: some View {
+	var body: some View {
 		VStack {
-//			TextField("Search for a game...", text: $searchText, onCommit: {
-//				viewModel.searchGames(byName: searchText)
-//			})
-//			
-//			.padding()
-//			.textFieldStyle(RoundedBorderTextFieldStyle())
-
-			List(viewModel.games) { game in
+			List(model.games) { game in
 				HStack(spacing: 15) {
-					if let imageID = game.cover?.image_id, let url = viewModel.coverURL(for: imageID) {
+					if let imageID = game.cover?.image_id, let url = model.coverURL(for: imageID) {
 						AsyncImage(url: url) { image in
 							image
 								.resizable()
@@ -36,7 +32,7 @@ struct SearchView: View {
 					} else {
 						GameCoverPlaceholderView()
 					}
-
+					
 					VStack(alignment: .leading) {
 						Text(game.name)
 							.font(.headline)
@@ -45,17 +41,24 @@ struct SearchView: View {
 								.font(.subheadline)
 						}
 					}
+					Spacer()
+					Button(action: {
+//						model.saveGameToCollection(game)
+					}) {
+						Image(systemName: "plus.circle")
+					}
+					.buttonStyle(BorderlessButtonStyle())
 				}
 			}
 			.navigationTitle("Search Games")
 			.searchable(text: $searchText, prompt: "Search for a game...")
 			.onSubmit(of: .search) {
-				viewModel.searchGames(byName: searchText)
+				model.getGames(query: searchText)
 			}
 		}
-    }
+	}
 }
 
 #Preview {
-    SearchView()
+	SearchView()
 }

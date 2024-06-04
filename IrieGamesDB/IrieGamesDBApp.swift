@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct IrieGamesDBApp: App {
+	
+	@State var model = GameViewModel()
+	
     var body: some Scene {
         WindowGroup {
             HomeView()
+				.environment(model)
+//				.modelContainer(for: [GameLibraryItemModel.self])
         }
     }
 }
