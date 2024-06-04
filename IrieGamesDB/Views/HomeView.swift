@@ -6,14 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
+	
+	@Environment(\.modelContext) private var modelContext
+	
+	@Query private var libraryGames: [LibraryGame]
 	
 	@State private var showingSheet = false
 
 	var body: some View {
 		NavigationStack {
 			Text("This will be the list of games")
+			
+			List(libraryGames) { libraryGame in
+				Text(libraryGame.name)
+			}
+			
 			.sheet(isPresented: $showingSheet) {
 				NavigationStack {
 					SearchView()

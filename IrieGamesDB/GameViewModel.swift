@@ -6,16 +6,23 @@
 //
 
 import Foundation
+import SwiftData
 
 @Observable
-class GameViewModel: NSObject {
+class GameViewModel {
 	
-	var games = [Game]()
+	var searchGames = [SearchGame]()
 	var dataService = DataService()
+//	var selectedGame: LibraryGame?
 	
 	func getGames(query: String?) {
 		Task {
-			games = await dataService.searchGames(query: query)
+			searchGames = await dataService.searchGames(query: query)
+		}
+	}
+	func addGame(id: Int, modelContext: ModelContext) {
+		Task {
+			await dataService.searchGameById(id: id, modelContext: modelContext)
 		}
 	}
 

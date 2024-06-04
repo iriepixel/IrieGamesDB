@@ -10,16 +10,20 @@ import SwiftUI
 struct SearchView: View {
 	
 	@Environment(GameViewModel.self) var model
-//	@Environment(\.modelContext) private var context
+	@Environment(\.modelContext) private var modelContext
+	
+//	@State private var libraryGame: LibraryGame
 	
 //	@StateObject private var viewModel = GameViewModel()
 	@State private var searchText = ""
 	
 	var body: some View {
 		VStack {
-			List(model.games) { game in
+			List(model.searchGames) { game in
 				HStack(spacing: 15) {
-					if let imageID = game.cover?.image_id, let url = model.coverURL(for: imageID) {
+					if let imageID = game.cover?.image_id {
+						let url = model.coverURL(for: imageID)
+						
 						AsyncImage(url: url) { image in
 							image
 								.resizable()
@@ -43,11 +47,12 @@ struct SearchView: View {
 					}
 					Spacer()
 					Button(action: {
-//						model.saveGameToCollection(game)
+						model.addGame(id: game.id, modelContext: modelContext)
 					}) {
 						Image(systemName: "plus.circle")
 					}
 					.buttonStyle(BorderlessButtonStyle())
+					
 				}
 			}
 			.navigationTitle("Search Games")
@@ -58,7 +63,7 @@ struct SearchView: View {
 		}
 	}
 }
-
-#Preview {
-	SearchView()
-}
+//
+//#Preview {
+//	SearchView()
+//}

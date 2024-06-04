@@ -6,40 +6,27 @@
 //
 
 import Foundation
+import SwiftData
 //import Alamofire
 //import Combine
 
 struct DataService {
 	
 	private let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
-	private let baseURL = "https://api.igdb.com/v4/games"
+	private let endpoint = "https://api.igdb.com/v4/games"
 	
-	var games = [Game]()
+	//	var searchGames = [SearchGame]()
+	//	var libraryGames = [LibraryGame]()
 	
-	func searchGames(query: String?) async -> [Game] {
+	func searchGames(query: String?) async -> [SearchGame] {
 		
-		//		// Check API key exists
-		//		guard apiKey != nil else {
-		//			return [Game]()
-		//		}
-		//
-//		let headers: HTTPHeaders = [
-//			"Client-ID": "xdkpe896gb9gap6e5ytng5e5ri4tjm",
-//			"Authorization": "Bearer \(apiKey!)"
-//		]
-		
-//		var request = URLRequest(url: URL(string: baseURL)!)
-		let rawBody = "search \"\(query!)\"; fields id,name,rating,cover.image_id; limit 100;"
-		
-//		request.httpMethod = HTTPMethod.post.rawValue
-//		request.headers = headers
-//		request.httpBody = rawBody.data(using: .utf8)
+		let rawBody = "search \"\(query!)\"; fields id,name,cover.image_id; limit 10;"
 		
 		// Create URL
-//		if let url = URL(string: endpointUrlString) {
+		if let url = URL(string: endpoint) {
 			
 			// Create request
-			var request = URLRequest(url: URL(string: baseURL)!)
+			var request = URLRequest(url: url)
 			request.addValue("xdkpe896gb9gap6e5ytng5e5ri4tjm", forHTTPHeaderField: "Client-ID")
 			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
 			request.httpMethod = "POST"
@@ -53,28 +40,62 @@ struct DataService {
 				
 				// Parse JSON
 				let decoder = JSONDecoder()
-				let results = try decoder.decode([Game].self, from: data)
+				let results = try decoder.decode([SearchGame].self, from: data)
 				return results
 				
 			} catch {
 				print("Send request error: \(error)")
 			}
 			
-//		}
+		}
 		
+		return [SearchGame]()
+	}
+	
+	func searchGameById(id: Int, modelContext: ModelContext) async -> LibraryGame{
 		
-		//		let AFRequest = AF.request(request)
-		//		AFRequest.responseDecodable(of: [Game].self) { response in
-		//			switch response.result {
-		//				   case .success(let games):
-		//				   DispatchQueue.main.async {
-		//					   self.games = games
-		//				   }
-		//				   case .failure(let error):
-		//					   print("Error fetching games: \(error.localizedDescription)")
-		//			   }
-		//		   }
+		let rawBody = "fields id,name,rating,cover.url,cover.image_id; where id = \(id);"
 		
-		return [Game]()
+		// Create URL
+		if let url = URL(string: endpoint) {
+			
+			// Create request
+			var request = URLRequest(url: url)
+			request.addValue("xdkpe896gb9gap6e5ytng5e5ri4tjm", forHTTPHeaderField: "Client-ID")
+			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
+			request.httpMethod = "POST"
+			request.httpBody = rawBody.data(using: .utf8)
+			
+			// Send request
+			do {
+				let (data, _) = try await URLSession.shared.data(for: request)
+				
+				// Parse JSON
+				let decoder = JSONDecoder()
+				let responseGame = try decoder.decode([LibraryGame].self, from: data)
+				
+				let newLibraryGame = LibraryGame(
+					id: responseGame[0].id,
+					name: responseGame[0].name,
+					rating: responseGame[0].rating,
+					cover: responseGame[0].cover
+				)
+				
+				modelContext.insert(newLibraryGame)
+				
+				return newLibraryGame
+				
+			} catch {
+				print("Send request error: \(error)")
+			}
+			
+		}
+		
+		return LibraryGame(
+			id: 0,
+			name: "",
+			rating: 0.0,
+			cover: nil
+		)
 	}
 }

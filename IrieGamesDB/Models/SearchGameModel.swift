@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game: Identifiable, Codable {
+struct SearchGame: Identifiable, Codable {
 	let id: Int
 	let name: String
 	let rating: Double?
