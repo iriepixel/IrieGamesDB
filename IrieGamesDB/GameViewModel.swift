@@ -20,14 +20,15 @@ class GameViewModel {
 			searchGames = await dataService.searchGames(query: query)
 		}
 	}
+	
 	func addGame(id: Int, modelContext: ModelContext) {
 		Task {
 			await dataService.searchGameById(id: id, modelContext: modelContext)
 		}
 	}
 
-	func coverURL(for imageID: String) -> URL? {
-		return URL(string: "https://images.igdb.com/igdb/image/upload/t_720p/\(imageID).jpg")
+	func coverURL(for imageId: String) -> URL? {
+		return URL(string: "https://images.igdb.com/igdb/image/upload/t_720p/\(imageId).jpg")
 	}
 }
 	

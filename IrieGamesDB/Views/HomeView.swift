@@ -18,12 +18,16 @@ struct HomeView: View {
 
 	var body: some View {
 		NavigationStack {
-			Text("This will be the list of games")
 			
-			List(libraryGames) { libraryGame in
-				Text(libraryGame.name)
+			VStack {
+				if libraryGames.isEmpty {
+					Text("This will be the list of games")
+				} else {
+					List(libraryGames) { libraryGame in
+						Text(libraryGame.name)
+					}
+				}
 			}
-			
 			.sheet(isPresented: $showingSheet) {
 				NavigationStack {
 					SearchView()

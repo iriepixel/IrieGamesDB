@@ -11,18 +11,14 @@ struct SearchView: View {
 	
 	@Environment(GameViewModel.self) var model
 	@Environment(\.modelContext) private var modelContext
-	
-//	@State private var libraryGame: LibraryGame
-	
-//	@StateObject private var viewModel = GameViewModel()
 	@State private var searchText = ""
 	
 	var body: some View {
 		VStack {
 			List(model.searchGames) { game in
 				HStack(spacing: 15) {
-					if let imageID = game.cover?.image_id {
-						let url = model.coverURL(for: imageID)
+					if let imageId = game.cover?.imageId {
+						let url = model.coverURL(for: imageId)
 						
 						AsyncImage(url: url) { image in
 							image
@@ -39,13 +35,25 @@ struct SearchView: View {
 					
 					VStack(alignment: .leading) {
 						Text(game.name)
-							.font(.headline)
-						if let rating = game.rating {
-							Text("Rating: \(rating, specifier: "%.1f")")
-								.font(.subheadline)
+							.font(.subheadline)
+						
+						HStack {
+							if let firstReleseDate = game.rating {
+								Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
+									.font(.caption)
+									.foregroundColor(.gray)
+							}
+							
+							if let rating = game.rating {
+								Text("Rating: \(Int(rating))")
+									.font(.caption)
+									.foregroundColor(.gray)
+							}
 						}
 					}
+					
 					Spacer()
+					
 					Button(action: {
 						model.addGame(id: game.id, modelContext: modelContext)
 					}) {

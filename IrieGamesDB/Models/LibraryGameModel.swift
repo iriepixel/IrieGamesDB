@@ -23,7 +23,7 @@ class LibraryGame: Identifiable, Codable {
 		case cover
 	}
 	
-	init(id: Int, name: String, rating: Double?, cover: Cover?) {
+	init(id: Int, name: String, cover: Cover?, rating: Double?) {
 		self.id = id
 		self.name = name
 		self.rating = rating
@@ -41,9 +41,4 @@ class LibraryGame: Identifiable, Codable {
 	func encode(to encoder: Encoder) throws {
 		// TODO: Handle encoding if you need to here
 	}
-	
-	struct Cover: Codable {
-		let image_id: String
-	}
 }
-
