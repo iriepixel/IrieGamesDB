@@ -60,6 +60,7 @@ struct SearchView: View {
 					
 					Button(action: {
 						model.addGame(id: game.id, modelContext: modelContext)
+						dismiss()
 					}) {
 						Image(systemName: "plus.circle")
 					}
@@ -70,7 +71,7 @@ struct SearchView: View {
 //			.listStyle(.plain)
 			.searchable(text: $searchText, prompt: "Search for a game...")
 			.navigationTitle("Search Games")
-			.navigationBarTitleDisplayMode(.inline)
+//			.navigationBarTitleDisplayMode(.inline)
 			.onSubmit(of: .search) {
 //				dismissSearch()
 //				dismiss()

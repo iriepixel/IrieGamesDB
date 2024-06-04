@@ -52,9 +52,7 @@ struct DataService {
 	
 	func searchGameById(id: Int, modelContext: ModelContext) async {
 		
-		let rawBody = """
-			"fields id,name,cover,rating; where id = \(id);"
-		"""
+		let rawBody = "fields id,name,cover.image_id,rating; where id = \(id);"
 		
 		// Create URL
 		if let url = URL(string: endpoint) {
