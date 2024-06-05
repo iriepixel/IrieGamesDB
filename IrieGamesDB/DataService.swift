@@ -6,17 +6,18 @@
 //
 
 import Foundation
+import SwiftUI
 import SwiftData
 //import Alamofire
 //import Combine
 
 struct DataService {
 	
+	@Environment(\.modelContext) private var modelContext
+	
+	private let clientId = Bundle.main.infoDictionary?["CLIENT_ID"] as? String
 	private let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
 	private let endpoint = "https://api.igdb.com/v4/games"
-	
-	//	var searchGames = [SearchGame]()
-	//	var libraryGames = [LibraryGame]()
 	
 	func searchGames(query: String?) async -> [SearchGame] {
 		
@@ -27,7 +28,7 @@ struct DataService {
 			
 			// Create request
 			var request = URLRequest(url: url)
-			request.addValue("xdkpe896gb9gap6e5ytng5e5ri4tjm", forHTTPHeaderField: "Client-ID")
+			request.addValue(clientId!, forHTTPHeaderField: "Client-ID")
 			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
 			request.httpMethod = "POST"
 			request.httpBody = rawBody.data(using: .utf8)
@@ -50,7 +51,7 @@ struct DataService {
 		return [SearchGame]()
 	}
 	
-	func searchGameById(id: Int, modelContext: ModelContext) async {
+	func searchGameById(id: Int) async {
 		
 		let rawBody = "fields id,name,cover.image_id,rating; where id = \(id);"
 		
@@ -59,7 +60,7 @@ struct DataService {
 			
 			// Create request
 			var request = URLRequest(url: url)
-			request.addValue("xdkpe896gb9gap6e5ytng5e5ri4tjm", forHTTPHeaderField: "Client-ID")
+			request.addValue("", forHTTPHeaderField: "Client-ID")
 			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
 			request.httpMethod = "POST"
 			request.httpBody = rawBody.data(using: .utf8)
@@ -71,6 +72,8 @@ struct DataService {
 				// Parse JSON
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([LibraryGame].self, from: data)
+				
+				let insertContext = ModelContext(modelContext.container)
 
 				let newLibraryGame = LibraryGame(
 					id: responseGame[0].id,
@@ -79,7 +82,9 @@ struct DataService {
 					rating: responseGame[0].rating
 				)
 				
-				modelContext.insert(newLibraryGame)
+//				modelContext.insert(newLibraryGame)
+				insertContext.insert(newLibraryGame)
+				try insertContext.save()
 				
 			} catch {
 				print("Send request error [searchGameById]: \(error)")

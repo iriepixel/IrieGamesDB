@@ -21,9 +21,9 @@ class GameViewModel {
 		}
 	}
 	
-	func addGame(id: Int, modelContext: ModelContext) {
+	func addGame(id: Int) {
 		Task {
-			await dataService.searchGameById(id: id, modelContext: modelContext)
+			await dataService.searchGameById(id: id)
 		}
 	}
 

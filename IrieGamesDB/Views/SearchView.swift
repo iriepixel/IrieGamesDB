@@ -59,7 +59,7 @@ struct SearchView: View {
 					Spacer()
 					
 					Button(action: {
-						model.addGame(id: game.id, modelContext: modelContext)
+						model.addGame(id: game.id)
 						dismiss()
 					}) {
 						Image(systemName: "plus.circle")
