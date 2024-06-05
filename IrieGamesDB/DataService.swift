@@ -8,12 +8,8 @@
 import Foundation
 import SwiftUI
 import SwiftData
-//import Alamofire
-//import Combine
 
 struct DataService {
-	
-	@Environment(\.modelContext) private var modelContext
 	
 	private let clientId = Bundle.main.infoDictionary?["CLIENT_ID"] as? String
 	private let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
@@ -51,7 +47,7 @@ struct DataService {
 		return [SearchGame]()
 	}
 	
-	func searchGameById(id: Int) async {
+	func fetchGameById(id: Int, modelContext: ModelContext) async {
 		
 		let rawBody = "fields id,name,cover.image_id,rating; where id = \(id);"
 		
@@ -60,7 +56,7 @@ struct DataService {
 			
 			// Create request
 			var request = URLRequest(url: url)
-			request.addValue("", forHTTPHeaderField: "Client-ID")
+			request.addValue(clientId!, forHTTPHeaderField: "Client-ID")
 			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
 			request.httpMethod = "POST"
 			request.httpBody = rawBody.data(using: .utf8)
@@ -68,13 +64,11 @@ struct DataService {
 			// Send request
 			do {
 				let (data, _) = try await URLSession.shared.data(for: request)
-				
+								
 				// Parse JSON
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([LibraryGame].self, from: data)
 				
-				let insertContext = ModelContext(modelContext.container)
-
 				let newLibraryGame = LibraryGame(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
@@ -82,9 +76,8 @@ struct DataService {
 					rating: responseGame[0].rating
 				)
 				
-//				modelContext.insert(newLibraryGame)
-				insertContext.insert(newLibraryGame)
-				try insertContext.save()
+				modelContext.insert(newLibraryGame)
+				
 				
 			} catch {
 				print("Send request error [searchGameById]: \(error)")

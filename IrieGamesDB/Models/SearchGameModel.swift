@@ -8,8 +8,8 @@
 import Foundation
 
 struct SearchGame: Codable, Identifiable {
-	var id: Int
-	var name: String
+	var id = 0
+	var name = ""
 	var cover: Cover?
 	var platforms: [Platform]?
 	var firstReleseDate: TimeInterval? // Date(timeIntervalSince1970: TimeInterval(unixTime))

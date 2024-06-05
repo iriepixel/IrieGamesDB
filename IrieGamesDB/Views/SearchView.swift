@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
 	
-	@Environment(GameViewModel.self) var model
+	@Environment(GameViewModel.self) var dataModel
 	@Environment(\.modelContext) private var modelContext
 	
 	@Environment(\.dismissSearch) private var dismissSearch
@@ -19,10 +19,10 @@ struct SearchView: View {
 	
 	var body: some View {
 		VStack {
-			List(model.searchGames) { game in
+			List(dataModel.searchGames) { game in
 				HStack(spacing: 15) {
 					if let imageId = game.cover?.imageId {
-						let url = model.coverURL(for: imageId)
+						let url = dataModel.coverURL(for: imageId)
 						
 						AsyncImage(url: url) { image in
 							image
@@ -59,7 +59,7 @@ struct SearchView: View {
 					Spacer()
 					
 					Button(action: {
-						model.addGame(id: game.id)
+						dataModel.fetchGameById(id: game.id, modelContext: modelContext)
 						dismiss()
 					}) {
 						Image(systemName: "plus.circle")
@@ -75,7 +75,7 @@ struct SearchView: View {
 			.onSubmit(of: .search) {
 //				dismissSearch()
 //				dismiss()
-				model.getGames(query: searchText)
+				dataModel.getGames(query: searchText)
 			}
 		}
 	}

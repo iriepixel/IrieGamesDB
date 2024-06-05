@@ -11,8 +11,8 @@ import SwiftData
 @Model
 class LibraryGame: Identifiable, Codable {
 	
-	@Attribute(.unique) var id: Int
-	var name: String
+	var id = 0
+	var name = ""
 	var cover: Cover?
 	var rating: Double?
 	

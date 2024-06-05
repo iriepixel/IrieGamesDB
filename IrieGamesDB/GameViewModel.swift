@@ -9,11 +9,10 @@ import Foundation
 import SwiftData
 
 @Observable
-class GameViewModel {
+class GameViewModel: ObservableObject {
 	
 	var searchGames = [SearchGame]()
 	var dataService = DataService()
-//	var selectedGame: LibraryGame?
 	
 	func getGames(query: String?) {
 		Task {
@@ -21,14 +20,17 @@ class GameViewModel {
 		}
 	}
 	
-	func addGame(id: Int) {
+	func fetchGameById(id: Int, modelContext: ModelContext) {
+//		let fetchGameByIdTask = Task { () -> LibraryGame in
+//			return await dataService.fetchGameById(id: id)
+//		}
 		Task {
-			await dataService.searchGameById(id: id)
+			return await dataService.fetchGameById(id: id, modelContext: modelContext)
 		}
 	}
-
+	
 	func coverURL(for imageId: String) -> URL? {
 		return URL(string: "https://images.igdb.com/igdb/image/upload/t_720p/\(imageId).jpg")
 	}
 }
-	
+

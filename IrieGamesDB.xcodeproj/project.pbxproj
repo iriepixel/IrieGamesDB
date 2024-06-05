@@ -37,6 +37,7 @@
 		06F5D9112C0E95800087D6F5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		06F5D9122C0E95D40087D6F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		06F5D9192C0FC9CF0087D6F5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		06F5D91B2C1070490087D6F5 /* IrieGamesDB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IrieGamesDB.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +70,7 @@
 		068C6C882C0A80AC00524F30 /* IrieGamesDB */ = {
 			isa = PBXGroup;
 			children = (
+				06F5D91B2C1070490087D6F5 /* IrieGamesDB.entitlements */,
 				06F5D9122C0E95D40087D6F5 /* Info.plist */,
 				068C6C892C0A80AC00524F30 /* IrieGamesDBApp.swift */,
 				068C6C972C0A80E000524F30 /* GameViewModel.swift */,
@@ -337,6 +339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = IrieGamesDB/IrieGamesDB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IrieGamesDB/Preview Content\"";
@@ -372,6 +375,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = IrieGamesDB/IrieGamesDB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IrieGamesDB/Preview Content\"";
