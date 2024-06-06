@@ -24,7 +24,9 @@ struct HomeScreen: View {
 				if !libraryGames.isEmpty {
 					List {
 						ForEach(libraryGames) { libraryGame in
-							NavigationLink(libraryGame.name, value: libraryGame)
+							NavigationLink(value: libraryGame) {
+								Text(libraryGame.name)
+							}
 								.swipeActions {
 									Button {
 										modelContext.delete(libraryGame)

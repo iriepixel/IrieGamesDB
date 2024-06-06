@@ -73,8 +73,8 @@ struct GameScreen: View {
 				
 				if let screenshots = libraryGame.screenshots {
 					ForEach(screenshots) { screenshot in
-						if let imageId = screenshot.imageId {
-							let url = viewModel.coverURL(imageId: imageId)
+//						if let imageId = screenshot.imageId {
+							let url = viewModel.coverURL(imageId: screenshot.imageId)
 							
 							AsyncImage(url: url) { image in
 								image
@@ -85,9 +85,9 @@ struct GameScreen: View {
 							}
 							.frame(width: 200, height: 150)
 							.clipShape(RoundedRectangle(cornerRadius: 5))
-						} else {
-							GameCoverPlaceholderView()
-						}
+//						} else {
+//							GameCoverPlaceholderView()
+//						}
 						
 					}
 				}

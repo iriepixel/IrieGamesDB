@@ -95,12 +95,15 @@ class LibraryGame: Identifiable, Codable, Hashable {
 			],
 			screenshots: [
 				Screenshot(
+					id: 806758,
 					imageId: "schahy"
 				),
 				Screenshot(
+					id: 806759,
 					imageId: "schahz"
 				),
 				Screenshot(
+					id: 806760,
 					imageId: "schai0"
 				),
 			],
@@ -143,10 +146,11 @@ struct PlatformLogo: Codable, Identifiable {
 }
 
 struct Screenshot: Codable, Identifiable {
-	var id: Int?
-	var imageId: String?
+	var id: Int
+	var imageId: String
 	
 	enum CodingKeys: String, CodingKey {
+		case id
 		case imageId = "image_id"
 	}
 }

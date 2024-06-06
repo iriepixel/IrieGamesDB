@@ -59,7 +59,6 @@ struct DataService {
 		let rawBody = """
 			fields id, name, rating, first_release_date, summary,
 				cover,
-					cover.id,
 					cover.image_id,
 				platforms,
 					platforms.id,

@@ -23,9 +23,8 @@ struct SearchGame: Codable, Identifiable {
 	}
 }
 
-struct Cover: Codable, Identifiable, Hashable  {
-	var id: String?
-	var imageId: String?
+struct Cover: Codable  {
+	var imageId: String
 	
 	enum CodingKeys: String, CodingKey {
 		case imageId = "image_id"
