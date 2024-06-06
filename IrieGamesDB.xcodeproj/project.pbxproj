@@ -19,6 +19,7 @@
 		06F5D90E2C0E916F0087D6F5 /* LibraryGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5D90D2C0E916F0087D6F5 /* LibraryGameModel.swift */; };
 		06F5D9102C0E95380087D6F5 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5D90F2C0E95380087D6F5 /* DataService.swift */; };
 		06F5D91A2C0FC9CF0087D6F5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5D9192C0FC9CF0087D6F5 /* Helpers.swift */; };
+		06F5D91D2C1105700087D6F5 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5D91C2C1105700087D6F5 /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		06F5D9122C0E95D40087D6F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		06F5D9192C0FC9CF0087D6F5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		06F5D91B2C1070490087D6F5 /* IrieGamesDB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IrieGamesDB.entitlements; sourceTree = "<group>"; };
+		06F5D91C2C1105700087D6F5 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				068C6C8B2C0A80AC00524F30 /* HomeView.swift */,
 				06F5D9092C0E6D9C0087D6F5 /* GameCoverPlaceholderView.swift */,
 				06F5D90B2C0E6FE80087D6F5 /* SearchView.swift */,
+				06F5D91C2C1105700087D6F5 /* GameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				068C6C982C0A80E000524F30 /* GameViewModel.swift in Sources */,
 				06F5D91A2C0FC9CF0087D6F5 /* Helpers.swift in Sources */,
 				06B41CD22C0A92860007F568 /* DetailsGameModel.swift in Sources */,
+				06F5D91D2C1105700087D6F5 /* GameView.swift in Sources */,
 				06F5D90C2C0E6FE80087D6F5 /* SearchView.swift in Sources */,
 				06F5D90E2C0E916F0087D6F5 /* LibraryGameModel.swift in Sources */,
 				068C6C9B2C0A810C00524F30 /* SearchGameModel.swift in Sources */,

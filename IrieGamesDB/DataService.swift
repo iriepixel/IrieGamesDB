@@ -17,7 +17,12 @@ struct DataService {
 	
 	func searchGames(query: String?) async -> [SearchGame] {
 		
-		let rawBody = "search \"\(query!)\";fields id,name,cover.image_id,platforms.name,platforms.platform_logo.image_id,first_release_date,rating;limit 100;"
+		let rawBody = """
+			search \"\(query!)\";
+			fields 
+				id, name, cover.image_id, first_release_date, rating;
+			limit 100;
+		"""
 		
 		// Create URL
 		if let url = URL(string: endpoint) {
@@ -48,8 +53,26 @@ struct DataService {
 	}
 	
 	func fetchGameById(id: Int, modelContext: ModelContext) async {
-		
-		let rawBody = "fields id,name,cover.image_id,rating; where id = \(id);"
+		let rawBody = """
+			fields id, name, rating, first_release_date, summary,
+				cover,
+					cover.id,
+					cover.image_id,
+				platforms,
+					platforms.id,
+					platforms.name,
+					platforms.abbreviation,
+						platforms.platform_logo.id,
+						platforms.platform_logo.image_id,
+				screenshots,
+					screenshots.id,
+					screenshots.image_id,
+				involved_companies,
+					involved_companies.id,
+					involved_companies.developer,
+					involved_companies.company.name;
+			where id = \(id);
+		"""
 		
 		// Create URL
 		if let url = URL(string: endpoint) {
@@ -64,16 +87,25 @@ struct DataService {
 			// Send request
 			do {
 				let (data, _) = try await URLSession.shared.data(for: request)
-								
+				
+//				print(String(decoding: data, as: UTF8.self))
+				
 				// Parse JSON
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([LibraryGame].self, from: data)
+				
+				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
 				
 				let newLibraryGame = LibraryGame(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
 					cover: responseGame[0].cover,
-					rating: responseGame[0].rating
+					rating: responseGame[0].rating,
+					firstReleseDate: responseGame[0].firstReleseDate,
+					summary: responseGame[0].summary,
+					platforms: responseGame[0].platforms,
+					screenshots: responseGame[0].screenshots,
+					involvedCompanies: responseGame[0].involvedCompanies
 				)
 				
 				modelContext.insert(newLibraryGame)

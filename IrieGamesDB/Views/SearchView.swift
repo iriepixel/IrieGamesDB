@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
 	
-	@Environment(GameViewModel.self) var dataModel
+	@Environment(GameViewModel.self) var viewModel
 	@Environment(\.modelContext) private var modelContext
 	
 	@Environment(\.dismissSearch) private var dismissSearch
@@ -19,10 +19,10 @@ struct SearchView: View {
 	
 	var body: some View {
 		VStack {
-			List(dataModel.searchGames) { game in
+			List(viewModel.searchGames) { game in
 				HStack(spacing: 15) {
 					if let imageId = game.cover?.imageId {
-						let url = dataModel.coverURL(for: imageId)
+						let url = viewModel.coverURL(imageId: imageId)
 						
 						AsyncImage(url: url) { image in
 							image
@@ -40,26 +40,27 @@ struct SearchView: View {
 					VStack(alignment: .leading) {
 						Text(game.name)
 							.font(.subheadline)
+							.bold()
 						
-						HStack {
-							if let firstReleseDate = game.rating {
-								Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
-									.font(.caption)
-									.foregroundColor(.gray)
-							}
-							
-							if let rating = game.rating {
-								Text("Rating: \(Int(rating))")
-									.font(.caption)
-									.foregroundColor(.gray)
-							}
-						}
+//						HStack {
+//							if let firstReleseDate = game.rating {
+//								Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
+//									.font(.caption)
+//									.foregroundColor(.gray)
+//							}
+//							
+//							if let rating = game.rating {
+//								Text("Rating: \(Int(rating))")
+//									.font(.caption)
+//									.foregroundColor(.gray)
+//							}
+//						}
 					}
 					
 					Spacer()
 					
 					Button(action: {
-						dataModel.fetchGameById(id: game.id, modelContext: modelContext)
+						viewModel.fetchGameById(id: game.id, modelContext: modelContext)
 						dismiss()
 					}) {
 						Image(systemName: "plus.circle")
@@ -75,7 +76,7 @@ struct SearchView: View {
 			.onSubmit(of: .search) {
 //				dismissSearch()
 //				dismiss()
-				dataModel.getGames(query: searchText)
+				viewModel.getGames(query: searchText)
 			}
 		}
 	}
