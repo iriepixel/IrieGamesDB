@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Observable
-class GameViewModel: ObservableObject {
+class GameViewModel {
 	
 	var searchGames = [SearchGame]()
 	var selectedLibraryGame: LibraryGame?
@@ -23,9 +23,6 @@ class GameViewModel: ObservableObject {
 	}
 	
 	func fetchGameById(id: Int, modelContext: ModelContext) {
-//		let fetchGameByIdTask = Task { () -> LibraryGame in
-//			return await dataService.fetchGameById(id: id)
-//		}
 		Task {
 			return await dataService.fetchGameById(id: id, modelContext: modelContext)
 		}
