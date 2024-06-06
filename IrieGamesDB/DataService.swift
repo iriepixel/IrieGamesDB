@@ -29,6 +29,8 @@ struct DataService {
 			
 			// Create request
 			var request = URLRequest(url: url)
+			
+			// Set request headers, method & body
 			request.addValue(clientId!, forHTTPHeaderField: "Client-ID")
 			request.addValue("Bearer \(apiKey!)", forHTTPHeaderField: "Authorization")
 			request.httpMethod = "POST"
@@ -37,6 +39,7 @@ struct DataService {
 			// Send request
 			do {
 				let (data, _) = try await URLSession.shared.data(for: request)
+//				let (data, response) = try await URLSession.shared.data(for: request)
 				
 				// Parse JSON
 				let decoder = JSONDecoder()
@@ -94,7 +97,7 @@ struct DataService {
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([LibraryGame].self, from: data)
 				
-				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
+//				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
 				
 				let newLibraryGame = LibraryGame(
 					id: responseGame[0].id,

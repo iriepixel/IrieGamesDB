@@ -7,8 +7,6 @@
 	<key>CLIENT_ID</key>
 	<string>$(CLIENT_ID)</string>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
+	<array/>
 </dict>
 </plist>

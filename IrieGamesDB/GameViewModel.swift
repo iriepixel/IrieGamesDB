@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Observable
-class GameViewModel {
+class GameViewModel: ObservableObject {
 	
 	var searchGames = [SearchGame]()
 	var selectedLibraryGame: LibraryGame?

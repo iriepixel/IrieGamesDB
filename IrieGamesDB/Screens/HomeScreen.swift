@@ -8,10 +8,10 @@
 import SwiftUI
 import SwiftData
 
-struct HomeView: View {
+struct HomeScreen: View {
 	
 	@Environment(\.modelContext) private var modelContext
-	@Environment(GameViewModel.self) var model
+	@Environment(GameViewModel.self) var gameViewModel
 	
 	@Query private var libraryGames: [LibraryGame]
 	
@@ -35,13 +35,16 @@ struct HomeView: View {
 								}
 						}
 					}
+					.navigationDestination(for: LibraryGame.self) { libraryGame in
+						GameScreen(libraryGame: libraryGame)
+					}
 				} else {
 					Text("This will be the list of games")
 				}
 			}
 			.sheet(isPresented: $showingSheet) {
 				NavigationStack {
-					SearchView()
+					SearchScreen()
 						.toolbar {
 							Button(action: {
 								showingSheet.toggle()
@@ -52,9 +55,6 @@ struct HomeView: View {
 				}
 			}
 			.navigationTitle("My Games")
-			.navigationDestination(for: LibraryGame.self) { libraryGame in
-				GameView(game: libraryGame)
-			}
 			.toolbar {
 				Button(action: {
 					showingSheet.toggle()
@@ -68,5 +68,7 @@ struct HomeView: View {
 
 
 #Preview {
-	HomeView()
+	HomeScreen()
+		.modelContainer(previewContainer)
+		.environment(GameViewModel())
 }

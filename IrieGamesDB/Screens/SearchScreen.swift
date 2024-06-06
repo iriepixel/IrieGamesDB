@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchScreen: View {
 	
-	@Environment(GameViewModel.self) var viewModel
 	@Environment(\.modelContext) private var modelContext
+	@Environment(GameViewModel.self) var viewModel
 	
 	@Environment(\.dismissSearch) private var dismissSearch
 	@Environment(\.dismiss) private var dismiss
@@ -81,7 +81,8 @@ struct SearchView: View {
 		}
 	}
 }
-//
+
 //#Preview {
-//	SearchView()
+//	SearchScreen()
+//		.modelContainer(for: [LibraryGame.self])
 //}

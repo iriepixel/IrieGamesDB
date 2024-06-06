@@ -21,9 +21,6 @@ class LibraryGame: Identifiable, Codable, Hashable {
 	var screenshots: [Screenshot]?
 	var involvedCompanies: [InvolvedCompany]?
 	
-//	summary, platforms, screenshots, involved_companies, game_modes, genres, similar_games, websites
-//	player_perspectives, storyline
-	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case name
@@ -73,6 +70,52 @@ class LibraryGame: Identifiable, Codable, Hashable {
 	
 	func encode(to encoder: Encoder) throws {
 		// TODO: Handle encoding if you need to here
+	}
+	
+	static func example() -> LibraryGame {
+		let game = LibraryGame(
+			id: 203722,
+			name: "Dave the Diver",
+			cover: Cover(
+				imageId: "co4v9d"
+			),
+			rating: 81.56281059032352,
+			firstReleseDate: 1666828800,
+			summary: "Marine adventure set in the mysterious Blue Hole. Explore the sea with Dave by day, and run a sushi restaurant at night. Uncover the secrets of the Blue Hole, and unwrap this deep sea mystery involving three friends, each with distinct personalities. New adventures await.",
+			platforms: [
+				Platform(
+					abbreviation: "PS5"
+				),
+				Platform(
+					abbreviation: "Switch"
+				),
+				Platform(
+					abbreviation: "PC"
+				)
+			],
+			screenshots: [
+				Screenshot(
+					imageId: "schahy"
+				),
+				Screenshot(
+					imageId: "schahz"
+				),
+				Screenshot(
+					imageId: "schai0"
+				),
+			],
+			involvedCompanies: [
+				InvolvedCompany(
+					company: Company(
+						name: "MINTROCKET"
+					),
+					developer: true,
+					publisher: false
+				)
+			]
+		)
+		
+		return game
 	}
 }
 

@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct GameView: View {
+struct GameScreen: View {
 	
 	@Environment(GameViewModel.self) var viewModel
-	
-	var game: LibraryGame
+	let libraryGame: LibraryGame
 	
 	var body: some View {
 		ScrollView {
 			VStack {
-				Text(game.name)
+				Text(libraryGame.name)
 				
-				if let imageId = game.cover?.imageId {
+				if let imageId = libraryGame.cover?.imageId {
 					let url = viewModel.coverURL(imageId: imageId)
 					
 					AsyncImage(url: url) { image in
@@ -36,19 +36,19 @@ struct GameView: View {
 				
 				//				Text((game.cover?.imageId) ?? "N/A")
 				
-				if let rating = game.rating {
+				if let rating = libraryGame.rating {
 					Text("Rating: \(Int(rating))")
 				}
 				
-				if let firstReleseDate = game.firstReleseDate {
+				if let firstReleseDate = libraryGame.firstReleseDate {
 					Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
 				}
 				
-				if let summary = game.summary {
+				if let summary = libraryGame.summary {
 					Text(summary)
 				}
 				
-				if let platforms = game.platforms {
+				if let platforms = libraryGame.platforms {
 					ForEach(platforms) {platform in
 						//						Text(platform.name ?? "N/A")
 						Text(platform.abbreviation ?? "N/A")
@@ -71,7 +71,7 @@ struct GameView: View {
 					}
 				}
 				
-				if let screenshots = game.screenshots {
+				if let screenshots = libraryGame.screenshots {
 					ForEach(screenshots) { screenshot in
 						if let imageId = screenshot.imageId {
 							let url = viewModel.coverURL(imageId: imageId)
@@ -92,7 +92,7 @@ struct GameView: View {
 					}
 				}
 				
-				if let involvedCompanies = game.involvedCompanies {
+				if let involvedCompanies = libraryGame.involvedCompanies {
 					ForEach(involvedCompanies) {involvedCompany in
 						Text((involvedCompany.company?.name)!)
 					}
@@ -102,7 +102,10 @@ struct GameView: View {
 	}
 }
 
-//#Preview {
-//    GameView(libraryGame)
-//}
+#Preview {
+	ModelPreview { libraryGame in
+		GameScreen(libraryGame: libraryGame)
+			.environment(GameViewModel())
+	}
+}
 

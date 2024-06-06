@@ -11,13 +11,14 @@ import SwiftData
 @main
 struct IrieGamesDBApp: App {
 	
-//	@State var model = GameViewModel()
+	@State var model = GameViewModel()
 	
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeScreen()
+				//.environment(model)
 				.environment(GameViewModel())
-				.modelContainer(for: [LibraryGame.self])
+				.modelContainer(for: LibraryGame.self)
         }
     }
 }
