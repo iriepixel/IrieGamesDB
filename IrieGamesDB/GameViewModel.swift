@@ -13,6 +13,7 @@ class GameViewModel: ObservableObject {
 	
 	var searchGames = [SearchGame]()
 	var selectedLibraryGame: LibraryGame?
+	var selectedGameId: Int?
 	
 	var dataService = DataService()
 	
@@ -22,9 +23,9 @@ class GameViewModel: ObservableObject {
 		}
 	}
 	
-	func fetchGameById(id: Int, modelContext: ModelContext) {
+	func fetchGameById(id: Int) {
 		Task {
-			return await dataService.fetchGameById(id: id, modelContext: modelContext)
+			selectedLibraryGame = await dataService.fetchGameById(id: id)
 		}
 	}
 	

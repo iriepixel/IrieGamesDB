@@ -55,11 +55,10 @@ struct DataService {
 		return [SearchGame]()
 	}
 	
-	func fetchGameById(id: Int, modelContext: ModelContext) async {
+	func fetchGameById(id: Int) async -> LibraryGame {
 		let rawBody = """
 			fields id, name, rating, first_release_date, summary,
-				cover,
-					cover.image_id,
+				cover.image_id,
 				platforms,
 					platforms.id,
 					platforms.name,
@@ -96,27 +95,42 @@ struct DataService {
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([LibraryGame].self, from: data)
 				
-//				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
-				
-				let newLibraryGame = LibraryGame(
+				let selectedGame = LibraryGame(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
 					cover: responseGame[0].cover,
 					rating: responseGame[0].rating,
-					firstReleseDate: responseGame[0].firstReleseDate,
+					firstReleaseDate: responseGame[0].firstReleaseDate,
 					summary: responseGame[0].summary,
 					platforms: responseGame[0].platforms,
 					screenshots: responseGame[0].screenshots,
 					involvedCompanies: responseGame[0].involvedCompanies
 				)
 				
-				modelContext.insert(newLibraryGame)
+//				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
 				
+//				let newLibraryGame = LibraryGame(
+//					id: responseGame[0].id,
+//					name: responseGame[0].name,
+//					cover: responseGame[0].cover,
+//					rating: responseGame[0].rating,
+//					firstReleaseDate: responseGame[0].firstReleaseDate,
+//					summary: responseGame[0].summary,
+//					platforms: responseGame[0].platforms,
+//					screenshots: responseGame[0].screenshots,
+//					involvedCompanies: responseGame[0].involvedCompanies
+//				)
+//				
+//				modelContext.insert(newLibraryGame)
+//				
+				return selectedGame
 				
 			} catch {
 				print("Send request error [searchGameById]: \(error)")
 			}
 			
 		}
+		
+		return LibraryGame.example()
 	}
 }

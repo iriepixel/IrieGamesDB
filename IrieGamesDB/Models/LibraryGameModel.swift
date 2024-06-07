@@ -15,7 +15,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 	var name = ""
 	var cover: Cover?
 	var rating: Double?
-	var firstReleseDate: TimeInterval? // Date(timeIntervalSince1970: TimeInterval(unixTime))
+	var firstReleaseDate: TimeInterval? // Date(timeIntervalSince1970: TimeInterval(unixTime))
 	var summary: String?
 	var platforms: [Platform]?
 	var screenshots: [Screenshot]?
@@ -26,7 +26,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		case name
 		case cover
 		case rating
-		case firstReleseDate = "first_release_date"
+		case firstReleaseDate = "first_release_date"
 		case summary
 		case platforms
 		case screenshots
@@ -38,7 +38,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		name: String,
 		cover: Cover?,
 		rating: Double?,
-		firstReleseDate: TimeInterval?,
+		firstReleaseDate: TimeInterval?,
 		summary: String?,
 		platforms: [Platform]?,
 		screenshots: [Screenshot]?,
@@ -48,7 +48,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		self.name = name
 		self.cover = cover
 		self.rating = rating
-		self.firstReleseDate = firstReleseDate
+		self.firstReleaseDate = firstReleaseDate
 		self.summary = summary
 		self.platforms = platforms
 		self.screenshots = screenshots
@@ -61,7 +61,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		name = try container.decode(String.self, forKey: .name)
 		cover = try container.decodeIfPresent(Cover.self, forKey: .cover)
 		rating = try container.decodeIfPresent(Double.self, forKey: .rating)
-		firstReleseDate = try container.decodeIfPresent(TimeInterval.self, forKey: .firstReleseDate)
+		firstReleaseDate = try container.decodeIfPresent(TimeInterval.self, forKey: .firstReleaseDate)
 		summary = try container.decodeIfPresent(String.self, forKey: .summary)
 		platforms = try container.decodeIfPresent([Platform].self, forKey: .platforms)
 		screenshots = try container.decodeIfPresent([Screenshot].self, forKey: .screenshots)
@@ -80,7 +80,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 				imageId: "co4v9d"
 			),
 			rating: 81.56281059032352,
-			firstReleseDate: 1666828800,
+			firstReleaseDate: 1666828800,
 			summary: "Marine adventure set in the mysterious Blue Hole. Explore the sea with Dave by day, and run a sushi restaurant at night. Uncover the secrets of the Blue Hole, and unwrap this deep sea mystery involving three friends, each with distinct personalities. New adventures await.",
 			platforms: [
 				Platform(
