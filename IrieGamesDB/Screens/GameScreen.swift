@@ -23,6 +23,13 @@ struct GameScreen: View {
 			VStack(spacing: 20) {
 				if let game = game {
 					
+					Button(action: {
+						modelContext.insert(game)
+					}) {
+						Image(systemName: "plus.circle")
+					}
+					.buttonStyle(BorderlessButtonStyle())
+					
 					if let imageId = game.cover?.imageId {
 						let url = viewModel.coverURL(imageId: imageId)
 						
