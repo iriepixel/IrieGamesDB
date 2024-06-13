@@ -13,7 +13,7 @@ struct HomeScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var gameViewModel
 	
-	@Query private var libraryGames: [LibraryGame]
+	@Query private var libraryGames: [GameModel]
 	
 	@State private var showingSheet = false
 	
@@ -22,26 +22,9 @@ struct HomeScreen: View {
 			
 			VStack {
 				if !libraryGames.isEmpty {
-					List {
-						ForEach(libraryGames) { libraryGame in
-							NavigationLink(value: libraryGame) {
-								Text(libraryGame.name)
-							}
-								.swipeActions {
-									Button {
-										modelContext.delete(libraryGame)
-									} label: {
-										Label("Delete", systemImage: "trash")
-									}
-									.tint(.red)
-								}
-						}
-					}
-					.navigationDestination(for: LibraryGame.self) { libraryGame in
-						GameScreen(gameId: libraryGame.id)
-					}
+					GameListView()
 				} else {
-					Text("This will be the list of games")
+					Text("Your collection is empty.")
 				}
 			}
 			.sheet(isPresented: $showingSheet) {

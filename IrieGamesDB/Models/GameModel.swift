@@ -8,12 +8,42 @@
 import Foundation
 import SwiftData
 
+extension GameModel {
+	enum Status: String, CaseIterable, Codable, Hashable {
+		case backlog = "Backlog"
+		case playing = "Playing"
+		case complete = "Complete"
+	}
+}
+
+//enum Status: String, CaseIterable, Codable, Hashable {
+//	case backlog = "Backlog"
+//	case playing = "Playing"
+//	case complete = "Complete"
+//}
+
+//@Model
+//class Status {
+//	var name: String = ""
+//	
+//	var products: [Product]?
+//	
+//	init(
+//		name: String
+//	) {
+//		self.name = name
+//		self.products = []
+//	}
+//}
+
 @Model
-class LibraryGame: Identifiable, Codable, Hashable {
+class GameModel: Identifiable, Codable, Hashable {
 	
 	var id = 0
 	var name = ""
 	var cover: Cover?
+//	var status: Status = Status.backlog
+	var status: Status
 	var rating: Double?
 	var firstReleaseDate: TimeInterval? // Date(timeIntervalSince1970: TimeInterval(unixTime))
 	var summary: String?
@@ -25,6 +55,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		case id
 		case name
 		case cover
+		case status
 		case rating
 		case firstReleaseDate = "first_release_date"
 		case summary
@@ -37,6 +68,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		id: Int,
 		name: String,
 		cover: Cover?,
+		status: Status = Status.backlog,
 		rating: Double?,
 		firstReleaseDate: TimeInterval?,
 		summary: String?,
@@ -47,6 +79,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		self.id = id
 		self.name = name
 		self.cover = cover
+		self.status = status
 		self.rating = rating
 		self.firstReleaseDate = firstReleaseDate
 		self.summary = summary
@@ -60,6 +93,7 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		id = try container.decode(Int.self, forKey: .id)
 		name = try container.decode(String.self, forKey: .name)
 		cover = try container.decodeIfPresent(Cover.self, forKey: .cover)
+		status = Status.backlog
 		rating = try container.decodeIfPresent(Double.self, forKey: .rating)
 		firstReleaseDate = try container.decodeIfPresent(TimeInterval.self, forKey: .firstReleaseDate)
 		summary = try container.decodeIfPresent(String.self, forKey: .summary)
@@ -72,13 +106,14 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		// TODO: Handle encoding if you need to here
 	}
 	
-	static func example() -> LibraryGame {
-		let game = LibraryGame(
+	static func example() -> GameModel {
+		let game = GameModel(
 			id: 203722,
 			name: "Dave the Diver",
 			cover: Cover(
 				imageId: "co4v9d"
 			),
+			status: Status.backlog,
 			rating: 81.56281059032352,
 			firstReleaseDate: 1666828800,
 			summary: "Marine adventure set in the mysterious Blue Hole. Explore the sea with Dave by day, and run a sushi restaurant at night. Uncover the secrets of the Blue Hole, and unwrap this deep sea mystery involving three friends, each with distinct personalities. New adventures await.",
@@ -119,6 +154,14 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		)
 		
 		return game
+	}
+}
+
+struct Cover: Codable, Hashable  {
+	var imageId: String
+	
+	enum CodingKeys: String, CodingKey {
+		case imageId = "image_id"
 	}
 }
 

@@ -15,13 +15,16 @@ struct SearchScreen: View {
 	@Environment(\.dismissSearch) private var dismissSearch
 	@Environment(\.dismiss) private var dismiss
 	
-	@State private var searchText = ""
+	@State private var gameNameQuery = ""
 	
 	var body: some View {
+		
+//		let game = viewModel.selectedLibraryGame
+		
 		NavigationStack {
 			VStack {
 				List{
-					ForEach(viewModel.searchGames) { game in
+					ForEach(viewModel.libraryGames) { game in
 						NavigationLink(value: game) {
 							HStack(spacing: 15) {
 								if let imageId = game.cover?.imageId {
@@ -46,6 +49,13 @@ struct SearchScreen: View {
 										.bold()
 								}
 								
+//								Button(action: {
+//									modelContext.insert(game)
+//								}) {
+//									Image(systemName: "plus.circle")
+//								}
+//								.buttonStyle(BorderlessButtonStyle())
+								
 //								Spacer()
 								
 //								Button(action: {
@@ -57,18 +67,18 @@ struct SearchScreen: View {
 //								.buttonStyle(BorderlessButtonStyle())	
 							}
 						}
-//						.onTapGesture {
-//							viewModel.fetchGameById(id: game.id)
-//						}
+						.task {
+							viewModel.selectedLibraryGame = game
+						}
 					}
 				}
-				.navigationDestination(for: SearchGame.self) { searchGame in
-					GameScreen(gameId: searchGame.id)
+				.navigationDestination(for: GameModel.self) { libraryGame in
+					GameScreen()
 				}
-				.searchable(text: $searchText, prompt: "Search for a game...")
+				.searchable(text: $gameNameQuery, prompt: "Enter game name to search ...")
 				.navigationTitle("Search Games")
 				.onSubmit(of: .search) {
-					viewModel.getGames(query: searchText)
+					viewModel.fetchGamesByName(query: gameNameQuery)
 				}
 			}
 		}

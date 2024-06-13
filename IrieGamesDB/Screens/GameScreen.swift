@@ -13,15 +13,27 @@ struct GameScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var viewModel
 	
-	var gameId: Int
+//	@State var selectedGameStatus = GameViewModel().selectedLibraryGame?.status
+
+	
+//	@State var selectedStatus = LibraryGame.Status.backlog
+//	@State var selectedStatus: LibraryGame.Status
+//	@State var selectedGame: LibraryGame?.Status
+	
+//	@State private var selectedStatus: Status = .electronics
+	
+//	var game: GameModel
+//	var gameId: Int?
+	
+//	@State var selectedGameStatus: LibraryGame.Status?
 	
 	var body: some View {
 		
 		let game = viewModel.selectedLibraryGame
 		
 		ScrollView {
-			VStack(spacing: 20) {
-				if let game = game {
+			if let game = game {
+				VStack(spacing: 20) {
 					
 					Button(action: {
 						modelContext.insert(game)
@@ -40,7 +52,7 @@ struct GameScreen: View {
 						} placeholder: {
 							ProgressView()
 						}
-						.frame(width: 300, height: 500)
+						.frame(width: 340, height: 460)
 						.clipShape(RoundedRectangle(cornerRadius: 5))
 					} else {
 						GameCoverPlaceholderView()
@@ -49,6 +61,22 @@ struct GameScreen: View {
 					Text(game.name)
 						.font(.largeTitle)
 						.bold()
+					
+					Picker("Status", selection: viewModel.) {
+						ForEach(GameModel.Status.allCases, id: \.self) { status in
+							Text(status.rawValue)
+								.tag(status as GameModel.Status)
+						}
+					}
+//					.onReceive([self.selectedGameStatus].publisher.first()) { status in
+//						print(status)
+//						game.status = status
+//						do {
+//							try modelContext.save()
+//						} catch {
+//							print("Error saving status: \(error)")
+//						}
+//					}
 					
 					if let rating = game.rating {
 						Text("Rating: \(Int(rating))")
@@ -64,24 +92,7 @@ struct GameScreen: View {
 					
 					if let platforms = game.platforms {
 						ForEach(platforms) {platform in
-							//						Text(platform.name ?? "N/A")
 							Text(platform.abbreviation ?? "N/A")
-							
-							//						if let imageId = platform.platformLogo?.imageId {
-							//							let url = viewModel.coverURL(imageId: imageId)
-							//
-							//							AsyncImage(url: url) { image in
-							//								image
-							//									.resizable()
-							//									.aspectRatio(contentMode: .fit)
-							//							} placeholder: {
-							//								ProgressView()
-							//							}
-							//							.frame(width: 50, height: 50)
-							//							.clipShape(RoundedRectangle(cornerRadius: 5))
-							//						} else {
-							//							GameCoverPlaceholderView()
-							//						}
 						}
 					}
 					
@@ -107,22 +118,27 @@ struct GameScreen: View {
 						}
 					}
 				}
+				.navigationTitle(game.name)
+				.navigationBarTitleDisplayMode(.inline)
 			}
 		}
 		.padding(.horizontal)
 		.onAppear {
-			viewModel.fetchGameById(id: gameId)
+//			if let gameId = gameId {
+//				viewModel.fetchGameById(id: gameId)
+//			}
 		}
-		.onDisappear(perform: {
-			viewModel.selectedLibraryGame = nil
-		})
+//		.onDisappear(perform: {
+//			viewModel.selectedLibraryGame = nil
+//		})
 	}
 }
 
 //#Preview {
-//	ModelPreview { libraryGame in
-//		GameScreen(libraryGame: libraryGame)
-//			.environment(GameViewModel())
-//	}
+//	GameScreen(gameId: 203722)
+	//	ModelPreview { libraryGame in
+	//		GameScreen(libraryGame: libraryGame)
+	//			.environment(GameViewModel())
+	//	}
 //}
 
