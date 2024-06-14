@@ -6,22 +6,37 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GameDetailsView: View {
 	
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var viewModel
 	
-	//	var game: Game
+	@Query private var games: [Game]
+
+	init(game: Game) {
+		
+		let id = game.id
+		let predicate = #Predicate<Game> { game in
+			game.id == id
+		}
+		
+		_games = Query(filter: predicate, sort: \Game.name )
+	}
 	
 	var body: some View {
 		VStack(spacing: 20) {
 			
-			let game = viewModel.selectedGame
-			if let game = game {
+//			@Bindable var games = viewModel
+			
+			let selectedGame = viewModel.selectedGame
+			
+			if let game = selectedGame {
 				
-				
-				AddToLibraryButtonView(game: game)
+				if games.isEmpty {
+					AddToLibraryButtonView(game: game)
+				}
 				
 				if let coverId = game.coverId ?? game.cover?.imageId{
 					let url = viewModel.coverURL(imageId: coverId)

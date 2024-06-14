@@ -34,7 +34,7 @@ struct SearchScreen: View {
 	}
 }
 
-//#Preview {
-//	SearchScreen()
-//		.modelContainer(for: [LibraryGame.self])
-//}
+#Preview {
+	SearchScreen()
+		.modelContainer(for: [Game.self])
+}

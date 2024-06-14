@@ -126,23 +126,7 @@ struct WebService {
 					screenshots: responseGame[0].screenshots,
 					involvedCompanies: responseGame[0].involvedCompanies
 				)
-				
-//				print("Response Game Cover: \(String(describing: responseGame[0].cover))")
-				
-//				let newLibraryGame = LibraryGame(
-//					id: responseGame[0].id,
-//					name: responseGame[0].name,
-//					cover: responseGame[0].cover,
-//					rating: responseGame[0].rating,
-//					firstReleaseDate: responseGame[0].firstReleaseDate,
-//					summary: responseGame[0].summary,
-//					platforms: responseGame[0].platforms,
-//					screenshots: responseGame[0].screenshots,
-//					involvedCompanies: responseGame[0].involvedCompanies
-//				)
-//				
-//				modelContext.insert(newLibraryGame)
-//				
+
 				return selectedGame
 				
 			} catch {

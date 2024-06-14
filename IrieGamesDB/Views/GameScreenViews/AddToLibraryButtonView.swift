@@ -29,6 +29,8 @@ struct AddToLibraryButtonView: View {
 				involvedCompanies: game.involvedCompanies
 			)
 			
+//			let gameIdToSave = gameToSave.id
+			
 			modelContext.insert(gameToSave)
 		}) {
 			Image(systemName: "plus.circle")
@@ -38,5 +40,5 @@ struct AddToLibraryButtonView: View {
 }
 
 //#Preview {
-//    AddToLibraryButtonView()
+//	AddToLibraryButtonView()
 //}

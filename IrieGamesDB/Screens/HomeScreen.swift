@@ -11,7 +11,7 @@ import SwiftData
 struct HomeScreen: View {
 	
 	@Environment(\.modelContext) private var modelContext
-	@Environment(GameViewModel.self) var gameViewModel
+	@Environment(GameViewModel.self) var viewModel
 	
 	@Query private var games: [Game]
 	
@@ -23,13 +23,13 @@ struct HomeScreen: View {
 			VStack {
 				if !games.isEmpty {
 					List {
-						ForEach(games) { libraryGame in
-							NavigationLink(value: libraryGame) {
-								Text(libraryGame.name)
+						ForEach(games) { game in
+							NavigationLink(value: game) {
+								Text(game.name)
 							}
 								.swipeActions {
 									Button {
-										modelContext.delete(libraryGame)
+										modelContext.delete(game)
 									} label: {
 										Label("Delete", systemImage: "trash")
 									}

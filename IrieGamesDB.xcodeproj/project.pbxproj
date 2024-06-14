@@ -77,6 +77,14 @@
 			path = GameScreenViews;
 			sourceTree = "<group>";
 		};
+		062F731B2C1C927C001E2865 /* Partials */ = {
+			isa = PBXGroup;
+			children = (
+				06F5D9092C0E6D9C0087D6F5 /* GameCoverPlaceholderView.swift */,
+			);
+			path = Partials;
+			sourceTree = "<group>";
+		};
 		068C6C7D2C0A80AC00524F30 = {
 			isa = PBXGroup;
 			children = (
@@ -141,9 +149,9 @@
 		06F5D9082C0E6D510087D6F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				062F731B2C1C927C001E2865 /* Partials */,
 				062F73142C1C603E001E2865 /* GameScreenViews */,
 				062F73172C1C608B001E2865 /* GameDetailsView.swift */,
-				06F5D9092C0E6D9C0087D6F5 /* GameCoverPlaceholderView.swift */,
 				062F73112C1C526F001E2865 /* GameListView.swift */,
 				062F73192C1C8B26001E2865 /* SearchGameListView.swift */,
 			);

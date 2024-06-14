@@ -8,6 +8,15 @@
 import Foundation
 import SwiftData
 
+//@Model
+//class LibraryGameId: Identifiable {
+//	var id = [Int]()
+//	
+//	init(id: Int) {
+//		self.id.append(id)
+//	}
+//}
+
 @Model
 class Game: Identifiable, Codable, Hashable {
 	

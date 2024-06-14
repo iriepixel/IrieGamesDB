@@ -18,7 +18,7 @@ struct GameScreen: View {
 	var body: some View {
 		
 		ScrollView {
-			GameDetailsView()
+			GameDetailsView(game: game)
 		}
 		.onAppear(){
 			viewModel.selectedGame = game
@@ -27,10 +27,10 @@ struct GameScreen: View {
 	}
 }
 
-//#Preview {
-//	ModelPreview { libraryGame in
-//		GameScreen(libraryGame: libraryGame)
-//			.environment(GameViewModel())
-//	}
-//}
+#Preview {
+	ModelPreview { game in
+		GameScreen(game: game)
+			.environment(GameViewModel())
+	}
+}
 
