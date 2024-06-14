@@ -45,23 +45,8 @@ struct SearchScreen: View {
 										.font(.subheadline)
 										.bold()
 								}
-								
-//								Spacer()
-								
-								Button(action: {
-//									viewModel.setSelectedGame(game: game)
-//									viewModel.fetchGameById(id: game.id, modelContext: modelContext)
-//									dismiss()
-								}) {
-									Image(systemName: "plus.circle")
-								}
-//								.buttonStyle(BorderlessButtonStyle())	
 							}
 						}
-//						.task {
-//							viewModel.setSelectedGame(game: game)
-////							viewModel.selectedLibraryGame = game
-//						}
 					}
 				}
 				.navigationDestination(for: Game.self) { game in

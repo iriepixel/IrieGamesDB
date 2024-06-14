@@ -38,7 +38,6 @@ struct HomeScreen: View {
 						}
 					}
 					.navigationDestination(for: Game.self) { game in
-//						GameScreen(gameId: libraryGame.id)
 						GameScreen(game: game)
 					}
 				} else {

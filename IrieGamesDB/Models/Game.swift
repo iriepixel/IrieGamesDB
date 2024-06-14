@@ -13,6 +13,7 @@ class Game: Identifiable, Codable, Hashable {
 	
 	var id = 0
 	var name = ""
+	var coverId: String?
 	var cover: Cover?
 	var rating: Double?
 	var firstReleaseDate: TimeInterval? // Date(timeIntervalSince1970: TimeInterval(unixTime))
@@ -24,6 +25,7 @@ class Game: Identifiable, Codable, Hashable {
 	enum CodingKeys: String, CodingKey {
 		case id
 		case name
+		case coverId = "image_id"
 		case cover
 		case rating
 		case firstReleaseDate = "first_release_date"
@@ -36,6 +38,7 @@ class Game: Identifiable, Codable, Hashable {
 	init(
 		id: Int,
 		name: String,
+		coverId: String?,
 		cover: Cover?,
 		rating: Double?,
 		firstReleaseDate: TimeInterval?,
@@ -46,6 +49,7 @@ class Game: Identifiable, Codable, Hashable {
 	) {
 		self.id = id
 		self.name = name
+		self.coverId = coverId
 		self.cover = cover
 		self.rating = rating
 		self.firstReleaseDate = firstReleaseDate
@@ -59,6 +63,7 @@ class Game: Identifiable, Codable, Hashable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		id = try container.decode(Int.self, forKey: .id)
 		name = try container.decode(String.self, forKey: .name)
+		coverId = try container.decodeIfPresent(String.self, forKey: .coverId)
 		cover = try container.decodeIfPresent(Cover.self, forKey: .cover)
 		rating = try container.decodeIfPresent(Double.self, forKey: .rating)
 		firstReleaseDate = try container.decodeIfPresent(TimeInterval.self, forKey: .firstReleaseDate)
@@ -76,7 +81,9 @@ class Game: Identifiable, Codable, Hashable {
 		let game = Game(
 			id: 203722,
 			name: "Dave the Diver",
+			coverId: "co4v9d",
 			cover: Cover(
+				id: 834759,
 				imageId: "co4v9d"
 			),
 			rating: 81.56281059032352,
@@ -121,6 +128,17 @@ class Game: Identifiable, Codable, Hashable {
 		return game
 	}
 }
+
+struct Cover: Codable  {
+	var id: Int?
+	var imageId: String?
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case imageId = "image_id"
+	}
+}
+
 
 struct Platform: Codable, Identifiable  {
 	var id: Int?

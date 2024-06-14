@@ -15,7 +15,7 @@ class GameViewModel: ObservableObject {
 	var selectedLibraryGame: Game?
 	var selectedGameId: Int?
 	
-	var dataService = DataService()
+	var dataService = WebService()
 	
 	func getGames(query: String?) {
 		Task {

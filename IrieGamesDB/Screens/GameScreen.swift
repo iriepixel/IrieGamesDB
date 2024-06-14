@@ -14,9 +14,7 @@ struct GameScreen: View {
 	@Environment(GameViewModel.self) var viewModel
 	
 //	@State var gvm = GameViewModel()
-	
-//	var gameId: Int
-//	@State var game = GameViewModel().selectedLibraryGame
+
 	var game: Game
 	
 	var body: some View {
@@ -28,15 +26,27 @@ struct GameScreen: View {
 //				if let game = game {
 					
 					Button(action: {
-						modelContext.insert(game)
-						try?  modelContext.save()
+						let gameToSave = Game(
+							id: game.id,
+							name: game.name,
+							coverId: game.cover?.imageId,
+							cover: game.cover,
+							rating: game.rating,
+							firstReleaseDate: game.firstReleaseDate,
+							summary: game.summary,
+							platforms: game.platforms,
+							screenshots: game.screenshots,
+							involvedCompanies: game.involvedCompanies
+						)
+						
+						modelContext.insert(gameToSave)
 					}) {
 						Image(systemName: "plus.circle")
 					}
 					.buttonStyle(BorderlessButtonStyle())
 					
-					if let imageId = game.cover?.imageId {
-						let url = viewModel.coverURL(imageId: imageId)
+				if let coverId = game.coverId ?? game.cover?.imageId{
+						let url = viewModel.coverURL(imageId: coverId)
 						
 						AsyncImage(url: url) { image in
 							image
@@ -69,24 +79,7 @@ struct GameScreen: View {
 					
 					if let platforms = game.platforms {
 						ForEach(platforms) {platform in
-							//						Text(platform.name ?? "N/A")
 							Text(platform.abbreviation ?? "N/A")
-							
-							//						if let imageId = platform.platformLogo?.imageId {
-							//							let url = viewModel.coverURL(imageId: imageId)
-							//
-							//							AsyncImage(url: url) { image in
-							//								image
-							//									.resizable()
-							//									.aspectRatio(contentMode: .fit)
-							//							} placeholder: {
-							//								ProgressView()
-							//							}
-							//							.frame(width: 50, height: 50)
-							//							.clipShape(RoundedRectangle(cornerRadius: 5))
-							//						} else {
-							//							GameCoverPlaceholderView()
-							//						}
 						}
 					}
 					

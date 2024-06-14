@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct DataService {
+struct WebService {
 	
 	private let clientId = Bundle.main.infoDictionary?["CLIENT_ID"] as? String
 	private let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
@@ -20,7 +20,7 @@ struct DataService {
 		let rawBody = """
 			search \"\(query!)\";
 			  fields id, name, rating, first_release_date, summary,
-				  cover.image_id,
+					cover.image_id,
 				  platforms,
 					  platforms.id,
 					  platforms.name,
@@ -56,6 +56,9 @@ struct DataService {
 				// Parse JSON
 				let decoder = JSONDecoder()
 				let results = try decoder.decode([Game].self, from: data)
+				
+//				print("Cover \(String(describing: results[0].cover?.imageId))")
+				
 				return results
 				
 			} catch {
@@ -70,7 +73,9 @@ struct DataService {
 	func fetchGameById(id: Int) async -> Game {
 		let rawBody = """
 			fields id, name, rating, first_release_date, summary,
-				cover.image_id,
+				cover,
+					cover.id
+					cover.image_id,
 				platforms,
 					platforms.id,
 					platforms.name,
@@ -107,9 +112,12 @@ struct DataService {
 				let decoder = JSONDecoder()
 				let responseGame = try decoder.decode([Game].self, from: data)
 				
+				print("Cover \(String(describing: responseGame[0].coverId))")
+				
 				let selectedGame = Game(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
+					coverId: responseGame[0].coverId,
 					cover: responseGame[0].cover,
 					rating: responseGame[0].rating,
 					firstReleaseDate: responseGame[0].firstReleaseDate,
