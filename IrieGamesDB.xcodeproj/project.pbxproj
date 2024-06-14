@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		062F73122C1C526F001E2865 /* GameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F73112C1C526F001E2865 /* GameListView.swift */; };
+		062F73162C1C6069001E2865 /* AddToLibraryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F73152C1C6069001E2865 /* AddToLibraryButtonView.swift */; };
+		062F73182C1C608B001E2865 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F73172C1C608B001E2865 /* GameView.swift */; };
 		068C6C8A2C0A80AC00524F30 /* IrieGamesDBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C6C892C0A80AC00524F30 /* IrieGamesDBApp.swift */; };
 		068C6C8C2C0A80AC00524F30 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C6C8B2C0A80AC00524F30 /* HomeScreen.swift */; };
 		068C6C8E2C0A80AD00524F30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 068C6C8D2C0A80AD00524F30 /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		062F73112C1C526F001E2865 /* GameListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListView.swift; sourceTree = "<group>"; };
+		062F73152C1C6069001E2865 /* AddToLibraryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLibraryButtonView.swift; sourceTree = "<group>"; };
+		062F73172C1C608B001E2865 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		068C6C862C0A80AC00524F30 /* IrieGamesDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IrieGamesDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		068C6C892C0A80AC00524F30 /* IrieGamesDBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrieGamesDBApp.swift; sourceTree = "<group>"; };
 		068C6C8B2C0A80AC00524F30 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -61,6 +65,14 @@
 				06F5D90F2C0E95380087D6F5 /* WebService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		062F73142C1C603E001E2865 /* GameScreenViews */ = {
+			isa = PBXGroup;
+			children = (
+				062F73152C1C6069001E2865 /* AddToLibraryButtonView.swift */,
+			);
+			path = GameScreenViews;
 			sourceTree = "<group>";
 		};
 		068C6C7D2C0A80AC00524F30 = {
@@ -127,6 +139,8 @@
 		06F5D9082C0E6D510087D6F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				062F73142C1C603E001E2865 /* GameScreenViews */,
+				062F73172C1C608B001E2865 /* GameView.swift */,
 				06F5D9092C0E6D9C0087D6F5 /* GameCoverPlaceholderView.swift */,
 				062F73112C1C526F001E2865 /* GameListView.swift */,
 			);
@@ -223,6 +237,8 @@
 				06F5D9202C1227130087D6F5 /* PreviewGameSampleData.swift in Sources */,
 				068C6C982C0A80E000524F30 /* GameViewModel.swift in Sources */,
 				06F5D91A2C0FC9CF0087D6F5 /* Helpers.swift in Sources */,
+				062F73162C1C6069001E2865 /* AddToLibraryButtonView.swift in Sources */,
+				062F73182C1C608B001E2865 /* GameView.swift in Sources */,
 				06F5D91D2C1105700087D6F5 /* GameScreen.swift in Sources */,
 				06F5D90C2C0E6FE80087D6F5 /* SearchScreen.swift in Sources */,
 				06F5D90E2C0E916F0087D6F5 /* Game.swift in Sources */,

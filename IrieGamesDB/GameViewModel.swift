@@ -13,24 +13,22 @@ class GameViewModel: ObservableObject {
 	
 	var games = [Game]()
 	var selectedLibraryGame: Game?
-	var selectedGameId: Int?
 	
-	var dataService = WebService()
+	var webService = WebService()
 	
 	func getGames(query: String?) {
 		Task {
-			games = await dataService.searchGames(query: query)
+			games = await webService.searchGames(query: query)
 		}
 	}
 	
 	func fetchGameById(id: Int) {
 		Task {
-			selectedLibraryGame = await dataService.fetchGameById(id: id)
+			selectedLibraryGame = await webService.fetchGameById(id: id)
 		}
 	}
 	
 	func setSelectedGame(game: Game) {
-		print(game.name)
 		selectedLibraryGame = game
 	}
 	
