@@ -13,7 +13,7 @@ struct HomeScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var gameViewModel
 	
-	@Query private var libraryGames: [LibraryGame]
+	@Query private var libraryGames: [Game]
 	
 	@State private var showingSheet = false
 	
@@ -37,8 +37,9 @@ struct HomeScreen: View {
 								}
 						}
 					}
-					.navigationDestination(for: LibraryGame.self) { libraryGame in
-						GameScreen(gameId: libraryGame.id)
+					.navigationDestination(for: Game.self) { game in
+//						GameScreen(gameId: libraryGame.id)
+						GameScreen(game: game)
 					}
 				} else {
 					Text("This will be the list of games")

@@ -11,15 +11,15 @@ import SwiftData
 @Observable
 class GameViewModel: ObservableObject {
 	
-	var searchGames = [SearchGame]()
-	var selectedLibraryGame: LibraryGame?
+	var games = [Game]()
+	var selectedLibraryGame: Game?
 	var selectedGameId: Int?
 	
 	var dataService = DataService()
 	
 	func getGames(query: String?) {
 		Task {
-			searchGames = await dataService.searchGames(query: query)
+			games = await dataService.searchGames(query: query)
 		}
 	}
 	
@@ -29,8 +29,13 @@ class GameViewModel: ObservableObject {
 		}
 	}
 	
+	func setSelectedGame(game: Game) {
+		print(game.name)
+		selectedLibraryGame = game
+	}
+	
 	func coverURL(imageId: String) -> URL? {
-		print(imageId)
+//		print(imageId)
 		return URL(string: "https://images.igdb.com/igdb/image/upload/t_720p/\(imageId).jpg")
 	}
 }

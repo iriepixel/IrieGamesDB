@@ -12,12 +12,12 @@ let previewContainer: ModelContainer = {
 	
 	do {
 		let config = ModelConfiguration(isStoredInMemoryOnly: true)
-		let container = try ModelContainer(for: LibraryGame.self, configurations: config)
+		let container = try ModelContainer(for: Game.self, configurations: config)
 		
 		Task { @MainActor in
 			let context = container.mainContext
 			
-			let game = LibraryGame.example()
+			let game = Game.example()
 			context.insert(game)
 		}
 		

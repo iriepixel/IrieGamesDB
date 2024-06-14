@@ -18,7 +18,7 @@ struct IrieGamesDBApp: App {
             HomeScreen()
 				//.environment(model)
 				.environment(GameViewModel())
-				.modelContainer(for: LibraryGame.self)
+				.modelContainer(for: Game.self)
         }
     }
 }

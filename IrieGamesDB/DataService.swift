@@ -15,13 +15,25 @@ struct DataService {
 	private let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
 	private let endpoint = "https://api.igdb.com/v4/games"
 	
-	func searchGames(query: String?) async -> [SearchGame] {
+	func searchGames(query: String?) async -> [Game] {
 		
 		let rawBody = """
 			search \"\(query!)\";
-			fields 
-				id, name, cover.image_id, first_release_date, rating;
-			limit 100;
+			  fields id, name, rating, first_release_date, summary,
+				  cover.image_id,
+				  platforms,
+					  platforms.id,
+					  platforms.name,
+					  platforms.abbreviation,
+						  platforms.platform_logo.id,
+						  platforms.platform_logo.image_id,
+				  screenshots,
+					  screenshots.id,
+					  screenshots.image_id,
+				  involved_companies,
+					  involved_companies.id,
+					  involved_companies.developer,
+					  involved_companies.company.name;
 		"""
 		
 		// Create URL
@@ -43,7 +55,7 @@ struct DataService {
 				
 				// Parse JSON
 				let decoder = JSONDecoder()
-				let results = try decoder.decode([SearchGame].self, from: data)
+				let results = try decoder.decode([Game].self, from: data)
 				return results
 				
 			} catch {
@@ -52,10 +64,10 @@ struct DataService {
 			
 		}
 		
-		return [SearchGame]()
+		return [Game]()
 	}
 	
-	func fetchGameById(id: Int) async -> LibraryGame {
+	func fetchGameById(id: Int) async -> Game {
 		let rawBody = """
 			fields id, name, rating, first_release_date, summary,
 				cover.image_id,
@@ -93,9 +105,9 @@ struct DataService {
 				
 				// Parse JSON
 				let decoder = JSONDecoder()
-				let responseGame = try decoder.decode([LibraryGame].self, from: data)
+				let responseGame = try decoder.decode([Game].self, from: data)
 				
-				let selectedGame = LibraryGame(
+				let selectedGame = Game(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
 					cover: responseGame[0].cover,
@@ -131,6 +143,6 @@ struct DataService {
 			
 		}
 		
-		return LibraryGame.example()
+		return Game.example()
 	}
 }

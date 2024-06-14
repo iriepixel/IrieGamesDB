@@ -21,7 +21,7 @@ struct SearchScreen: View {
 		NavigationStack {
 			VStack {
 				List{
-					ForEach(viewModel.searchGames) { game in
+					ForEach(viewModel.games) { game in
 						NavigationLink(value: game) {
 							HStack(spacing: 15) {
 								if let imageId = game.cover?.imageId {
@@ -48,22 +48,24 @@ struct SearchScreen: View {
 								
 //								Spacer()
 								
-//								Button(action: {
+								Button(action: {
+//									viewModel.setSelectedGame(game: game)
 //									viewModel.fetchGameById(id: game.id, modelContext: modelContext)
 //									dismiss()
-//								}) {
-//									Image(systemName: "plus.circle")
-//								}
+								}) {
+									Image(systemName: "plus.circle")
+								}
 //								.buttonStyle(BorderlessButtonStyle())	
 							}
 						}
-//						.onTapGesture {
-//							viewModel.fetchGameById(id: game.id)
+//						.task {
+//							viewModel.setSelectedGame(game: game)
+////							viewModel.selectedLibraryGame = game
 //						}
 					}
 				}
-				.navigationDestination(for: SearchGame.self) { searchGame in
-					GameScreen(gameId: searchGame.id)
+				.navigationDestination(for: Game.self) { game in
+					GameScreen(game: game)
 				}
 				.searchable(text: $searchText, prompt: "Search for a game...")
 				.navigationTitle("Search Games")

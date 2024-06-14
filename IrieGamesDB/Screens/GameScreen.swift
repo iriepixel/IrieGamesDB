@@ -13,18 +13,23 @@ struct GameScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var viewModel
 	
-	var gameId: Int
+//	@State var gvm = GameViewModel()
+	
+//	var gameId: Int
+//	@State var game = GameViewModel().selectedLibraryGame
+	var game: Game
 	
 	var body: some View {
 		
-		let game = viewModel.selectedLibraryGame
+//		let game = viewModel.selectedLibraryGame
 		
 		ScrollView {
 			VStack(spacing: 20) {
-				if let game = game {
+//				if let game = game {
 					
 					Button(action: {
 						modelContext.insert(game)
+						try?  modelContext.save()
 					}) {
 						Image(systemName: "plus.circle")
 					}
@@ -106,15 +111,15 @@ struct GameScreen: View {
 							Text((involvedCompany.company?.name)!)
 						}
 					}
-				}
+//				}
 			}
 		}
 		.padding(.horizontal)
 		.onAppear {
-			viewModel.fetchGameById(id: gameId)
+//			viewModel.fetchGameById(id: gameId)
 		}
 		.onDisappear(perform: {
-			viewModel.selectedLibraryGame = nil
+//			viewModel.selectedLibraryGame = nil
 		})
 	}
 }

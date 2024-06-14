@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class LibraryGame: Identifiable, Codable, Hashable {
+class Game: Identifiable, Codable, Hashable {
 	
 	var id = 0
 	var name = ""
@@ -72,8 +72,8 @@ class LibraryGame: Identifiable, Codable, Hashable {
 		// TODO: Handle encoding if you need to here
 	}
 	
-	static func example() -> LibraryGame {
-		let game = LibraryGame(
+	static func example() -> Game {
+		let game = Game(
 			id: 203722,
 			name: "Dave the Diver",
 			cover: Cover(
