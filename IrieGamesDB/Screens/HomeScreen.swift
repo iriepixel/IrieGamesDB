@@ -28,12 +28,11 @@ struct HomeScreen: View {
 								Text(game.name)
 							}
 								.swipeActions {
-									Button {
+									Button(role: .destructive) {
 										modelContext.delete(game)
 									} label: {
 										Label("Delete", systemImage: "trash")
 									}
-									.tint(.red)
 								}
 						}
 					}
