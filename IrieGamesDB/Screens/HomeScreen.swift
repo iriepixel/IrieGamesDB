@@ -13,7 +13,7 @@ struct HomeScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var gameViewModel
 	
-	@Query private var libraryGames: [Game]
+	@Query private var games: [Game]
 	
 	@State private var showingSheet = false
 	
@@ -21,9 +21,9 @@ struct HomeScreen: View {
 		NavigationStack {
 			
 			VStack {
-				if !libraryGames.isEmpty {
+				if !games.isEmpty {
 					List {
-						ForEach(libraryGames) { libraryGame in
+						ForEach(games) { libraryGame in
 							NavigationLink(value: libraryGame) {
 								Text(libraryGame.name)
 							}

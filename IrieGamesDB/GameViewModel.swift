@@ -12,7 +12,7 @@ import SwiftData
 class GameViewModel: ObservableObject {
 	
 	var games = [Game]()
-	var selectedLibraryGame: Game?
+	var selectedGame: Game?
 	
 	var webService = WebService()
 	
@@ -24,12 +24,12 @@ class GameViewModel: ObservableObject {
 	
 	func fetchGameById(id: Int) {
 		Task {
-			selectedLibraryGame = await webService.fetchGameById(id: id)
+			selectedGame = await webService.fetchGameById(id: id)
 		}
 	}
 	
 	func setSelectedGame(game: Game) {
-		selectedLibraryGame = game
+		selectedGame = game
 	}
 	
 	func coverURL(imageId: String) -> URL? {
