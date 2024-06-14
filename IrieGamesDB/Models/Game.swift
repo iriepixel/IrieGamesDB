@@ -8,20 +8,29 @@
 import Foundation
 import SwiftData
 
-//@Model
-//class LibraryGameId: Identifiable {
-//	var id = [Int]()
-//	
-//	init(id: Int) {
-//		self.id.append(id)
-//	}
-//}
+enum Status: Int, Codable, Identifiable, CaseIterable {
+	case onShelf, inProgress, completed
+	var id: Self {
+		self
+	}
+	var descr: String {
+		switch self {
+		case .onShelf:
+			"On Shelf"
+		case .inProgress:
+			"In Progress"
+		case .completed:
+			"Completed"
+		}
+	}
+}
 
 @Model
 class Game: Identifiable, Codable, Hashable {
 	
 	var id = 0
 	var name = ""
+	var status: Status
 	var coverId: String?
 	var cover: Cover?
 	var rating: Double?
@@ -34,6 +43,7 @@ class Game: Identifiable, Codable, Hashable {
 	enum CodingKeys: String, CodingKey {
 		case id
 		case name
+		case status
 		case coverId = "image_id"
 		case cover
 		case rating
@@ -47,6 +57,7 @@ class Game: Identifiable, Codable, Hashable {
 	init(
 		id: Int,
 		name: String,
+		status: Status = .onShelf,
 		coverId: String?,
 		cover: Cover?,
 		rating: Double?,
@@ -58,6 +69,7 @@ class Game: Identifiable, Codable, Hashable {
 	) {
 		self.id = id
 		self.name = name
+		self.status = status
 		self.coverId = coverId
 		self.cover = cover
 		self.rating = rating
@@ -72,6 +84,7 @@ class Game: Identifiable, Codable, Hashable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		id = try container.decode(Int.self, forKey: .id)
 		name = try container.decode(String.self, forKey: .name)
+		status = try container.decodeIfPresent(Status.self, forKey: .status) ?? .onShelf
 		coverId = try container.decodeIfPresent(String.self, forKey: .coverId)
 		cover = try container.decodeIfPresent(Cover.self, forKey: .cover)
 		rating = try container.decodeIfPresent(Double.self, forKey: .rating)

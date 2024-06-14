@@ -14,7 +14,9 @@ struct GameDetailsView: View {
 	@Environment(GameViewModel.self) var viewModel
 	
 	@Query private var games: [Game]
-
+	
+	@State private var status = Status.onShelf
+	
 	init(game: Game) {
 		
 		let id = game.id
@@ -26,14 +28,12 @@ struct GameDetailsView: View {
 	}
 	
 	var body: some View {
-		VStack(spacing: 20) {
+		
+		let selectedGame = viewModel.selectedGame
+		
+		if let game = selectedGame {
 			
-//			@Bindable var games = viewModel
-			
-			let selectedGame = viewModel.selectedGame
-			
-			if let game = selectedGame {
-				
+			VStack(spacing: 20) {
 				if games.isEmpty {
 					AddToLibraryButtonView(game: game)
 				}
@@ -61,6 +61,17 @@ struct GameDetailsView: View {
 				if let rating = game.rating {
 					Text("Rating: \(Int(rating))")
 				}
+				
+				Picker("Status", selection: $status) {
+					ForEach(Status.allCases) { status in
+						Text(status.descr).tag(status)
+					}
+				}
+				.onChange(of: status, { oldValue, newValue in
+					print("Status: \(newValue)")
+					game.status = newValue
+					modelContext.insert(game)
+				})
 				
 				if let firstReleseDate = game.firstReleaseDate {
 					Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
@@ -97,6 +108,10 @@ struct GameDetailsView: View {
 						Text((involvedCompany.company?.name)!)
 					}
 				}
+			}
+			.onAppear{
+				print(viewModel.selectedGame?.status ?? "NA")
+				status = game.status
 			}
 		}
 	}
