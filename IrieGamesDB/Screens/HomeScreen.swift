@@ -22,13 +22,27 @@ struct HomeScreen: View {
 				List{
 					Section(header: Text("My Library")) {
 						NavigationLink(value: "All games") {
-							Text("All Games")
+							HStack {
+								Image(systemName: "square.stack.3d.down.right.fill")
+									.resizable()
+									.aspectRatio(contentMode: .fit)
+									.frame(width: 20)
+									.padding(.trailing, 6)
+								Text("All Games")
+							}
 						}
 					}
 					Section(header: Text("Game Status")) {
 						ForEach(Status.allCases, id: \.id) { status in
 							NavigationLink(value: status) {
-								Text("\(status.name)")
+								HStack {
+									Image(systemName: status.icon)
+										.resizable()
+										.aspectRatio(contentMode: .fit)
+										.frame(width: 20)
+										.padding(.trailing, 6)
+									Text("\(status.name)")
+								}
 							}
 						}
 					}

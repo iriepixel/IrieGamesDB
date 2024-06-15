@@ -45,6 +45,16 @@ extension Status {
 			return "Completed"
 		}
 	}
+	var icon: String {
+		switch self {
+		case .onShelf:
+			return "books.vertical"
+		case .inProgress:
+			return "play.square.stack"
+		case .completed:
+			return "checkmark.circle"
+		}
+	}
 }
 
 @Model
