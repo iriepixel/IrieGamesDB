@@ -13,34 +13,29 @@ struct HomeScreen: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var viewModel
 	
-	@Query private var games: [Game]
-	
 	@State private var showingSheet = false
 	
 	var body: some View {
 		NavigationStack {
 			
 			VStack {
-				if !games.isEmpty {
-					List {
-						ForEach(games) { game in
-							NavigationLink(value: game) {
-								Text(game.name)
-							}
-								.swipeActions {
-									Button(role: .destructive) {
-										modelContext.delete(game)
-									} label: {
-										Label("Delete", systemImage: "trash")
-									}
-								}
+				List{
+					Section(header: Text("My Library")) {
+						NavigationLink(destination: CategoryScreen(screenTitle: "All Games")) {
+							Text("All Games")
 						}
 					}
-					.navigationDestination(for: Game.self) { game in
-						GameScreen(game: game)
+					Section(header: Text("Game Status")) {
+						ForEach(Status.allCases, id: \.rawValue) { status in
+							NavigationLink(value: status) {
+								Text("\(status.descr)")
+							}
+						}
 					}
-				} else {
-					Text("This will be the list of games")
+				}
+				.navigationDestination(for: Status.self) { status in
+					CategoryScreen(screenTitle: status.descr)
+//					CategoryScreen(status: status)
 				}
 			}
 			.sheet(isPresented: $showingSheet) {
@@ -55,7 +50,7 @@ struct HomeScreen: View {
 						}
 				}
 			}
-			.navigationTitle("My Games")
+			.navigationTitle("GameShelf")
 			.toolbar {
 				Button(action: {
 					showingSheet.toggle()
