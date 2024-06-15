@@ -34,6 +34,7 @@ struct WebService {
 					  involved_companies.id,
 					  involved_companies.developer,
 					  involved_companies.company.name;
+			limit 100;
 		"""
 		
 		// Create URL
@@ -117,6 +118,7 @@ struct WebService {
 				let selectedGame = Game(
 					id: responseGame[0].id,
 					name: responseGame[0].name,
+					status: .onShelf,
 					coverId: responseGame[0].coverId,
 					cover: responseGame[0].cover,
 					rating: responseGame[0].rating,

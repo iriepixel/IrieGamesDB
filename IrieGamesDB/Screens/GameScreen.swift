@@ -20,7 +20,8 @@ struct GameScreen: View {
 		ScrollView {
 			GameDetailsView(game: game)
 		}
-		.onAppear(){
+		.onAppear {
+			print("GameScreen onAppear: \(game.name) & \(game.status)")
 			viewModel.selectedGame = game
 		}
 		.padding(.horizontal)

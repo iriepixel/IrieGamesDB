@@ -13,7 +13,7 @@ struct GameListView: View {
 	
 	var games: [Game]
 	
-    var body: some View {
+	var body: some View {
 		VStack{
 			if !games.isEmpty {
 				List {
@@ -38,7 +38,7 @@ struct GameListView: View {
 				Text("This will be the list of games")
 			}
 		}
-    }
+	}
 }
 
 //#Preview {

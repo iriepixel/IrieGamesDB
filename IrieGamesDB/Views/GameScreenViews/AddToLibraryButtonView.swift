@@ -19,6 +19,7 @@ struct AddToLibraryButtonView: View {
 			let gameToSave = Game(
 				id: game.id,
 				name: game.name,
+				status: game.status,
 				coverId: game.cover?.imageId,
 				cover: game.cover,
 				rating: game.rating,

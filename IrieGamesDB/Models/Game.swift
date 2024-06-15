@@ -8,19 +8,41 @@
 import Foundation
 import SwiftData
 
-enum Status: Int, Codable, Identifiable, CaseIterable {
-	case onShelf, inProgress, completed
-	var id: Self {
-		self
+//enum Status: Int, Codable, Identifiable, CaseIterable {
+//	case onShelf, inProgress, completed
+//	var id: Self {
+//		self
+//	}
+//	var descr: String {
+//		switch self {
+//		case .onShelf:
+//			"On Shelf"
+//		case .inProgress:
+//			"In Progress"
+//		case .completed:
+//			"Completed"
+//		}
+//	}
+//}
+
+enum Status: Int, CaseIterable, Codable, Identifiable {
+	var id: Int {
+		rawValue
 	}
-	var descr: String {
+	case onShelf = 1
+	case inProgress
+	case completed
+}
+
+extension Status {
+	var name: String {
 		switch self {
 		case .onShelf:
-			"On Shelf"
+			return "On Shelf"
 		case .inProgress:
-			"In Progress"
+			return "In Progress"
 		case .completed:
-			"Completed"
+			return "Completed"
 		}
 	}
 }
@@ -30,7 +52,11 @@ class Game: Identifiable, Codable, Hashable {
 	
 	var id = 0
 	var name = ""
-	var status: Status
+	//		var status: Status
+	var status: Status {
+		Status(rawValue: statusId)!
+	}
+	var statusId: Int
 	var coverId: String?
 	var cover: Cover?
 	var rating: Double?
@@ -44,6 +70,7 @@ class Game: Identifiable, Codable, Hashable {
 		case id
 		case name
 		case status
+		case statusId
 		case coverId = "image_id"
 		case cover
 		case rating
@@ -57,7 +84,8 @@ class Game: Identifiable, Codable, Hashable {
 	init(
 		id: Int,
 		name: String,
-		status: Status = .onShelf,
+		//		status: Status = .onShelf,
+		status: Status,
 		coverId: String?,
 		cover: Cover?,
 		rating: Double?,
@@ -69,7 +97,8 @@ class Game: Identifiable, Codable, Hashable {
 	) {
 		self.id = id
 		self.name = name
-		self.status = status
+		//		self.status = status
+		self.statusId = status.id
 		self.coverId = coverId
 		self.cover = cover
 		self.rating = rating
@@ -79,12 +108,13 @@ class Game: Identifiable, Codable, Hashable {
 		self.screenshots = screenshots
 		self.involvedCompanies = involvedCompanies
 	}
-
+	
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		id = try container.decode(Int.self, forKey: .id)
 		name = try container.decode(String.self, forKey: .name)
-		status = try container.decodeIfPresent(Status.self, forKey: .status) ?? .onShelf
+		//		status = try container.decodeIfPresent(Status.self, forKey: .status) ?? .onShelf
+		statusId = try container.decodeIfPresent(Int.self, forKey: .statusId) ?? 1
 		coverId = try container.decodeIfPresent(String.self, forKey: .coverId)
 		cover = try container.decodeIfPresent(Cover.self, forKey: .cover)
 		rating = try container.decodeIfPresent(Double.self, forKey: .rating)
@@ -103,6 +133,7 @@ class Game: Identifiable, Codable, Hashable {
 		let game = Game(
 			id: 203722,
 			name: "Dave the Diver",
+			status: .onShelf,
 			coverId: "co4v9d",
 			cover: Cover(
 				id: 834759,

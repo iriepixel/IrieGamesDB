@@ -12,26 +12,28 @@ struct CategoryScreen: View {
 	
 	@Query private var games: [Game]
 	
-//	init(status: Status) {
-//		print(status)
-//		let predicate = #Predicate<Game> { game in
-//			print(game.status)
-//			game.status == status
-//		}
-//
-//		_games = Query(filter: predicate, sort: \Game.name )
-//	}
+	let screenTitle: String
+	let status: Status?
 	
-	var screenTitle: String
+	init(status: Status?, screenTitle: String) {
+		self.screenTitle = screenTitle
+		self.status = status
+		
+		if let status {
+			_games = Query(filter: #Predicate { $0.statusId == status.id})
+		}
+	}
 	
-    var body: some View {
+	
+	
+	var body: some View {
 		GameListView(games: games)
 			.navigationTitle(screenTitle)
-    }
+	}
 }
 
 #Preview {
-	CategoryScreen(screenTitle: "Navigation Title")
+	CategoryScreen(status: .onShelf, screenTitle: "Navigation Title")
 		.modelContainer(previewContainer)
 		.environment(GameViewModel())
 }

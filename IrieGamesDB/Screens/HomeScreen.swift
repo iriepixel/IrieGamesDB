@@ -21,21 +21,23 @@ struct HomeScreen: View {
 			VStack {
 				List{
 					Section(header: Text("My Library")) {
-						NavigationLink(destination: CategoryScreen(screenTitle: "All Games")) {
+						NavigationLink(value: "All games") {
 							Text("All Games")
 						}
 					}
 					Section(header: Text("Game Status")) {
-						ForEach(Status.allCases, id: \.rawValue) { status in
+						ForEach(Status.allCases, id: \.id) { status in
 							NavigationLink(value: status) {
-								Text("\(status.descr)")
+								Text("\(status.name)")
 							}
 						}
 					}
 				}
+				.navigationDestination(for: String.self) { title in
+					CategoryScreen(status: nil, screenTitle: title)
+				}
 				.navigationDestination(for: Status.self) { status in
-					CategoryScreen(screenTitle: status.descr)
-//					CategoryScreen(status: status)
+					CategoryScreen(status: status, screenTitle: status.name)
 				}
 			}
 			.sheet(isPresented: $showingSheet) {

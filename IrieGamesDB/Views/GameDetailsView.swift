@@ -12,10 +12,13 @@ struct GameDetailsView: View {
 	
 	@Environment(\.modelContext) private var modelContext
 	@Environment(GameViewModel.self) var viewModel
+	@Environment(\.isPresented) var isPresented
 	
 	@Query private var games: [Game]
 	
 	@State private var status = Status.onShelf
+	@State private var statusChanged = false
+	@State private var newStatusId = 0
 	
 	init(game: Game) {
 		
@@ -64,13 +67,13 @@ struct GameDetailsView: View {
 				
 				Picker("Status", selection: $status) {
 					ForEach(Status.allCases) { status in
-						Text(status.descr).tag(status)
+						Text(status.name).tag(status)
 					}
 				}
 				.onChange(of: status, { oldValue, newValue in
-					print("Status: \(newValue)")
-					game.status = newValue
-					modelContext.insert(game)
+					print("on ChangeStatus: \(newValue)")
+					statusChanged = true
+					newStatusId = newValue.id
 				})
 				
 				if let firstReleseDate = game.firstReleaseDate {
@@ -109,9 +112,16 @@ struct GameDetailsView: View {
 					}
 				}
 			}
-			.onAppear{
-				print(viewModel.selectedGame?.status ?? "NA")
+			.onAppear {
+				print("GameDetailsView onAppear: \(game.statusId)")
+				print("GameDetailsView onAppear: \(game.status)")
 				status = game.status
+			}
+			.onChange(of: isPresented) { oldValue, newValue in
+				if !newValue && statusChanged {
+					game.statusId = newStatusId
+					modelContext.insert(game)
+				}
 			}
 		}
 	}
