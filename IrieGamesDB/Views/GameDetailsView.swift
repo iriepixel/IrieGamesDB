@@ -16,18 +16,22 @@ struct GameDetailsView: View {
 	
 	@Query private var games: [Game]
 	
-	@State private var status = Status.onShelf
+	@State private var status: Status
 	@State private var statusChanged = false
 	@State private var newStatusId = 0
 	
+//	var changed: Bool {
+//		status != Status(rawValue: game.status)!
+//	}
+	
 	init(game: Game) {
-		
 		let id = game.id
 		let predicate = #Predicate<Game> { game in
 			game.id == id
 		}
 		
 		_games = Query(filter: predicate, sort: \Game.name )
+		_status = State(initialValue: Status(rawValue: game.statusId)!)
 	}
 	
 	var body: some View {
@@ -51,7 +55,7 @@ struct GameDetailsView: View {
 					} placeholder: {
 						ProgressView()
 					}
-					.frame(width: 300, height: 500)
+					.frame(height: 500)
 					.clipShape(RoundedRectangle(cornerRadius: 5))
 				} else {
 					GameCoverPlaceholderView()
@@ -65,16 +69,18 @@ struct GameDetailsView: View {
 					Text("Rating: \(Int(rating))")
 				}
 				
-				Picker("Status", selection: $status) {
-					ForEach(Status.allCases) { status in
-						Text(status.name).tag(status)
+				if !games.isEmpty {
+					Picker("Status", selection: $status) {
+						ForEach(Status.allCases) { status in
+							Text(status.name).tag(status)
+						}
 					}
+					.onChange(of: status, { oldValue, newValue in
+						print("on ChangeStatus: \(newValue)")
+						statusChanged = true
+						newStatusId = newValue.id
+					})
 				}
-				.onChange(of: status, { oldValue, newValue in
-					print("on ChangeStatus: \(newValue)")
-					statusChanged = true
-					newStatusId = newValue.id
-				})
 				
 				if let firstReleseDate = game.firstReleaseDate {
 					Text(Helpers.getReleaseDate(unixTime: firstReleseDate))
@@ -115,7 +121,7 @@ struct GameDetailsView: View {
 			.onAppear {
 				print("GameDetailsView onAppear: \(game.statusId)")
 				print("GameDetailsView onAppear: \(game.status)")
-				status = game.status
+//				status = game.status
 			}
 			.onChange(of: isPresented) { oldValue, newValue in
 				if !newValue && statusChanged {
